@@ -1,14 +1,14 @@
 const express = require('express');
 const app = express();
+const path = require('path');
+const bodyParser = require('body-parser');
 const cors = require('cors'); // FIXME: disallw cors in production
 
 app.use(cors()); // FIXME: disallw cors in production
+app.use(bodyParser.json())
 
 app.use('/static', express.static('static'));
 
-app.get('/', (req, res) => {
-  res.send({connection: 'ok'});
-});
 
 app.get('/api/highlight', (req, res) => {
   const highlights = [
@@ -19,6 +19,10 @@ app.get('/api/highlight', (req, res) => {
   res.send(highlights);
 });
 
+app.use(express.static('client/build'));
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
+});
 
 const PORT = process.env.PORT || 8080;
 
