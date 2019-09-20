@@ -1,0 +1,54 @@
+.card-pic {
+  width: 100%;
+}
+
+.card-img {
+  overflow: hidden;
+}
+
+.card {
+  margin-top: 60px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  cursor: pointer;
+  /* transform: scale(1.01);
+  -webkit-transform: scale(1.01);
+  -moz-transform: scale(1.01);
+  -ms-transform: scale(1.01);
+  -o-transform: scale(1.01); */
+}
+
+.card-text {
+  font-size: 14px;
+  color: #545454;
+}
+
+@media (min-width: 576px) {
+}
+
+@media (min-width: 768px) {
+  .card {
+    margin-left: 70px;
+    margin-right: 70px;
+  }
+}
+
+@media (min-width: 992px) {
+  .card {
+    margin-left: 110px;
+    margin-right: 110px;
+  }
+
+  .card-text {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .card {
+    margin-left: 110px;
+    margin-right: 110px;
+  }
+}

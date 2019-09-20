@@ -1,3 +1,7 @@
+.section-wrapper {
+  background: #fafafa;
+}
+
 .copyright {
   font-size: 7px;
   margin-bottom: 7px;
@@ -5,7 +9,6 @@
 
 .footer-logos {
   max-width: 100%;
-  max-height: 100%;
 }
 
 .footer-text {
@@ -18,7 +21,12 @@
   height: 2px;
   margin: auto;
   margin-top: 5px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+}
+
+.footer-qrcode {
+  max-width: 40%;
+  margin-bottom: 50px;
 }
 
 .follow-link:hover {
@@ -34,23 +42,29 @@
     font-size: 10px;
     margin-bottom: 10px;
   }
+
+  .footer-qrcode {
+    max-width: 35%
+  }
 }
 
 @media (min-width: 768px) {
   .footer-logos {
     max-width: 60%;
-    max-height: 60%;
   }
 
   .footer-text {
     font-size: 40px;
+  }
+
+  .footer-qrcode {
+    max-width: 200px;
   }
 }
 
 @media (min-width: 992px) {
   .footer-logos {
     max-width: 50%;
-    max-height: 50%;
   }
 }
 
@@ -59,8 +73,8 @@
     font-size: 13px;
     margin-bottom: 13px;
   }
+
   .footer-logos {
     max-width: 40%;
-    max-height: 40%;
   }
 }

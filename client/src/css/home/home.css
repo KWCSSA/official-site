@@ -1,5 +1,5 @@
 .home-overlay {
-  height: 92vh;
+  height: 100vh;
   background-image: url("/home-background.jpg");
   background-size: cover;
   background-position: center;
@@ -8,9 +8,9 @@
 .overlay-mask {
   height: 100%;
   width: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.65);
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   flex-direction: column;
 }
 
@@ -28,9 +28,26 @@
   font-size: 2.5vw;
 }
 
+.section-wrapper {
+  background: #fafafa;
+}
+
 .description-logo {
   max-width: 100%;
   max-height: 100%;
+}
+
+.description-text {
+  font-size: 14px;
+}
+
+.description-gap {
+  height: 20px;
+}
+
+.description {
+  padding-top: 70px;
+  padding-bottom: 70px;
 }
 
 @media (min-width: 576px) {
@@ -49,7 +66,23 @@
   }
   
   .home-text-eng {
-    font-size: 1.6vw;
+    font-size: 1.8vw;
+  }
+}
+
+@media (min-width: 992px) {
+  .description-text {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .home-text {
+    font-size: 4vw;
+  }
+  
+  .home-text-eng {
+    font-size: 1.4vw;
   }
 }
 

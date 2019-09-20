@@ -1,8 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Scroll from 'react-scroll';
+import * as actions from '../actions';
 
 import NavBar from './NavBar';
-import Home from './Home';
+import Home from './home/Home';
 import About from './About';
 import Events from './Events';
 import Contact from './Contact';
@@ -10,12 +13,18 @@ import Contact from './Contact';
 const Admin = () => <h2>Admin</h2>;
 const NotFound = () => <h2>404</h2>;
 
+var scroll = Scroll.animateScroll;
+
 class App extends React.Component {
+  componentDidMount() {
+    this.props.fetchHighlightEvent();
+  }
+
   render() {
     return (
       <div>
         <BrowserRouter>
-          <NavBar />
+          <NavBar scroll={scroll} />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/about" component={About} />
@@ -30,4 +39,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default connect(null, actions)(App);

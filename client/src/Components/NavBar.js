@@ -27,26 +27,32 @@ export default class NavBar extends React.Component {
     });
   }
 
+  navBarClick(route) {
+    if (window.location.pathname === route) {
+      this.props.scroll.scrollToTop();
+    }
+  }
+
   render() {
     return (
       <div>
-        <Navbar color="white" light expand="md">
+        <Navbar color="white" className="fixed-top shadow-sm" light expand="md">
           <div className="container">
-          <Link className="navbar-brand" to="/"><img className="nav-logo" src="/logo-wide.png" alt="KWCSSA banner" /></Link>
+          <Link className="navbar-brand" to="/" onClick={() => this.navBarClick('/')}><img className="nav-logo" src="/logo-wide.png" alt="KWCSSA banner" /></Link>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem className="ml-1 mr-1">
-                <Link to="/" className="nav-link">HOME</Link>
+                <Link to="/" className="nav-link" onClick={() => this.navBarClick('/')}>HOME</Link>
               </NavItem>
               <NavItem className="ml-1 mr-1">
-                <Link to="/about" className="nav-link">ABOUT</Link>
+                <Link to="/about" className="nav-link" onClick={() => this.navBarClick('/about')}>ABOUT</Link>
               </NavItem>
               <NavItem className="ml-1 mr-1">
-                <Link to="/events" className="nav-link">EVENTS</Link>
+                <Link to="/events" className="nav-link" onClick={() => this.navBarClick('/events')}>EVENTS</Link>
               </NavItem>
               <NavItem className="ml-1 mr-1">
-                <Link to="/contact" className="nav-link">CONTACT</Link>
+                <Link to="/contact" className="nav-link" onClick={() => this.navBarClick('/contact')}>CONTACT</Link>
               </NavItem>
               <NavItem className="ml-1 mr-1">
                 <NavLink href="http://bbs.uwcssa.com">论坛</NavLink>
