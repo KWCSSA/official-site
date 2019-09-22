@@ -6,8 +6,10 @@ import HighlightEventCard from './HighlightEventCard';
 class HighlightEvent extends React.Component {
   renderCards() {
     if (this.props.home) {
+      var key = 0;
       return this.props.home.highlight.map(event => {
-        return <HighlightEventCard key={event.title} event={event} />;
+        key += 1;
+        return <HighlightEventCard key={key} event={event} />;
       })
     }
   }

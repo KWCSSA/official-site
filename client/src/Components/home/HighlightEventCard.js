@@ -10,7 +10,7 @@ export default ({event}) => {
   return (
     <div className="card shadow border" onClick={() => cardOnClick(event.link)}>
       <div className="card-img-top card-img">
-        <img className="card-pic" src={`${event.pic}`} alt={`${event.title} pic`} />
+        <img className="card-pic" src={event.pic} alt={`${event.title} pic`} /> {/*FIXME: use relative link*/}
       </div>
       <div className="card-body">
         <h3 className="card-title">{event.title}</h3>
@@ -19,4 +19,4 @@ export default ({event}) => {
       </div>
     </div>
   )
-}
+};

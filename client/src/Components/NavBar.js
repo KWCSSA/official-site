@@ -30,6 +30,8 @@ export default class NavBar extends React.Component {
   navBarClick(route) {
     if (window.location.pathname === route) {
       this.props.scroll.scrollToTop();
+    } else {
+      window.scrollTo(0, 0);
     }
   }
 
