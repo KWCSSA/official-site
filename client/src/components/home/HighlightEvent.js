@@ -5,9 +5,9 @@ import HighlightEventCard from './HighlightEventCard';
 
 class HighlightEvent extends React.Component {
   renderCards() {
-    if (this.props.home) {
+    if (this.props.event) {
       var key = 0;
-      return this.props.home.highlight.map(event => {
+      return this.props.event.highlight.map(event => {
         key += 1;
         return <HighlightEventCard key={key} event={event} />;
       })
@@ -32,7 +32,7 @@ class HighlightEvent extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    home: state.home
+    event: state.event
   };
 }
 

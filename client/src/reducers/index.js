@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 
-import homeReducer from './homeReducer';
+import eventReducer from './eventReducer';
+import aboutReducer from './aboutReducer';
 
 export default combineReducers({
-  home: homeReducer
+  event: eventReducer,
+  about: aboutReducer
 });

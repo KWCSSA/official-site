@@ -6,9 +6,9 @@ import '../../css/events/event.css';
 
 const Events = (props) => {
   function renderCards() {
-    if (props.home) {
+    if (props.event) {
       var key = 0;
-      return props.home.events.map(event => {
+      return props.event.events.map(event => {
         key += 1;
         return <EventCard key={key} event={event} />
       })
@@ -27,7 +27,7 @@ const Events = (props) => {
 
 function mapStateToProps(state) {
   return {
-    home: state.home
+    event: state.event
   };
 }
 

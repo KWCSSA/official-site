@@ -5,7 +5,7 @@ import Scroll from 'react-scroll';
 
 import NavBar from './NavBar';
 import Home from './home/Home';
-import About from './About';
+import About from './about/About';
 import Events from './events/Events';
 import Contact from './Contact';
 import Footer from './Footer';
