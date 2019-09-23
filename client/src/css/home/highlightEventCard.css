@@ -25,6 +25,10 @@
   color: #545454;
 }
 
+.card-title {
+  font-size: 25px;
+}
+
 @media (min-width: 576px) {
 }
 
@@ -33,12 +37,20 @@
     margin-left: 70px;
     margin-right: 70px;
   }
+
+  .card-title {
+    font-size: 30px;
+  }
 }
 
 @media (min-width: 992px) {
   .card {
     margin-left: 110px;
     margin-right: 110px;
+  }
+
+  .card-title {
+    font-size: 35px;
   }
 
   .card-text {

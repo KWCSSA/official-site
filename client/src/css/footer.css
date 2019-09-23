@@ -12,13 +12,14 @@
 }
 
 .footer-text {
-  font-size: 30px;
+  font-size: 35px;
+  font-weight: 600;
 }
 
 .underline {
   background: #212529;
   width: 80px;
-  height: 2px;
+  height: 3px;
   margin: auto;
   margin-top: 5px;
   margin-bottom: 30px;
@@ -58,7 +59,7 @@
   }
 
   .footer-text {
-    font-size: 40px;
+    font-size: 45px;
   }
 
   .footer-qrcode {

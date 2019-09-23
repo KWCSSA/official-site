@@ -21,7 +21,7 @@ class HighlightEvent extends React.Component {
           <div className="col footer-text">精品活动</div> {/* FIXME: come up with a better section name */}
         </div>
         <div className="row">
-          <div className="underline" />
+          <div className="underline mt-2" />
         </div>
         {this.renderCards()}
         <div className="row pb-5"></div>

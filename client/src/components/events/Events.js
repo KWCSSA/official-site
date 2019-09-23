@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import EventCard from './EventCard';
 
+import '../../css/events/event.css';
+
 const Events = (props) => {
   function renderCards() {
     if (props.home) {
@@ -15,7 +17,8 @@ const Events = (props) => {
   return (
     <div style={{background: "#fafafa"}} className="pt-5 pb-5">
       <div className="container">
-        <h2 style={{marginTop: "120px"}}>Events</h2>
+        <h2 className="footer-text text-center" style={{marginTop: "80px"}}>近期活动一览</h2>
+        <div className="underline mb-5 mt-3" />
         {renderCards()}
       </div>
     </div>
