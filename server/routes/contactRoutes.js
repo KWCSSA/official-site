@@ -16,7 +16,7 @@ const logger = winston.createLogger({
     new winston.transports.File({ filename: './logs/contact-message-error.log', level: 'error' }),
     new winston.transports.File({ filename: './logs/contact-message-combined.log' })
   ]
-})
+});
 
 module.exports = app => {
   app.post('/api/contact/message', (req, res) => {
@@ -78,4 +78,4 @@ module.exports = app => {
       }
     });
   });
-}
+};
