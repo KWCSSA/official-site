@@ -1,0 +1,13 @@
+.msg-content {
+  height: 100px !important;
+  resize: none;
+}
+
+.btn {
+  float: right;
+  width: 100px;
+}
+
+.send-email:hover {
+  cursor: pointer;
+}

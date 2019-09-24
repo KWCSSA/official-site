@@ -20,6 +20,14 @@ app.get('/api/events', (req, res) => {
   res.send(highlights);
 });
 
+app.post('/api/contact/message', (req, res) => {
+  console.log(req.body);
+  setTimeout(() => {
+    res.send({ success: true });
+  }, 2000)
+  
+})
+
 app.use(express.static('client/build'));
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));

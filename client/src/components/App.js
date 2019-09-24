@@ -9,11 +9,6 @@ import Root from './Root';
 const Admin = () => <h2>Admin</h2>;
 
 class App extends React.Component {
-  componentDidMount() {
-    this.props.fetchEvent();
-    this.props.fetchAbout();
-  }
-
   render() {
     return (
       <div>

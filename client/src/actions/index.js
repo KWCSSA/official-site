@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { reset } from 'redux-form';
+
 import * as TYPES from '../TYPES'
 
 export const fetchEvent = () => async dispatch => {
@@ -37,13 +39,20 @@ export const fetchAbout = () => async dispatch => {
   dispatch({ type: TYPES.FETCH_ABOUT, payload: res.data });
 }
 
+export const sendMessageLoading = () => ({ type: TYPES.SEND_MESSAGE_LOADING });
+
 export const sendMessage = message => async dispatch => {
-  // const res = await axios.post('/api/about/message'); FIXME: change to real api call
-  const res = {
-    data: {
-      success: false,
-      error: 'Null'
-    }
-  };
+  const res = await axios.post('http://localhost:8080/api/contact/message', message); //FIXME: change to real api call
+  // const res = {
+  //   data: {
+  //     success: false
+  //   }
+  // };
   dispatch({ type: TYPES.SEND_MESSAGE, payload: res.data });
+}
+
+export const clearMessageStatus = () => ({ type: TYPES.CLEAR_MESSAGE });
+
+export const clearContactForm = () => async dispatch => {
+  dispatch(reset('contactForm'));
 }
