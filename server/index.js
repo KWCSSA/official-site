@@ -3,6 +3,7 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors'); // FIXME: disallw cors in production
+require('dotenv').config();
 
 app.use(cors()); // FIXME: disallw cors in production
 app.use(bodyParser.json())
@@ -20,13 +21,8 @@ app.get('/api/events', (req, res) => {
   res.send(highlights);
 });
 
-app.post('/api/contact/message', (req, res) => {
-  console.log(req.body);
-  setTimeout(() => {
-    res.send({ success: true });
-  }, 2000)
-  
-})
+// Handle contact routes
+require('./routes/contactRoutes')(app);
 
 app.use(express.static('client/build'));
 app.get('*', (req, res) => {
