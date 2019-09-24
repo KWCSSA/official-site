@@ -70,7 +70,7 @@ class ContactForm extends React.Component {
           />
           <div className="row">
             <div className="col-8">
-              <div className={this.props.msgResponse && this.props.msgResponse.success ? 'text-success small' : 'text-danger small'}>
+              <div className={this.props.msgResponse && this.props.msgResponse.success ? 'text-success small-text' : 'text-danger small-text'}>
                 {this.props.msgResponse ? this.props.msgResponse.message_ch : ''} <br />
                 {this.props.msgResponse ? this.props.msgResponse.message_en : ''}
               </div>

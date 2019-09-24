@@ -31,7 +31,7 @@ class Contact extends React.Component {
     if (this.props.contact) {
       if (!this.state.clear && this.props.contact.success && !this.props.contact.sending) {
         this.props.clearContactForm();
-        this.setState({ clear: true })
+        this.setState({ clear: true });
       }
     }
   }

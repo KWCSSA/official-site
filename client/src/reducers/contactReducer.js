@@ -6,7 +6,15 @@ export default function(state = null, action) {
       if (action.payload.success) {
         return { success: true, message_ch: '发送成功，我们会尽快与您取得联系！', message_en: 'Success, we will get back to you asap!', sending: false };
       } else {
-        return { success: false, message_ch: '发送失败，请稍后重试！', message_en: 'Error, please try again later!', sending: false };
+        var message_ch = '发送失败，请稍后重试！';
+        var message_en = 'Error, please try again later!';
+        if (action.payload.message_ch) {
+          message_ch = action.payload.message_ch;
+        }
+        if (action.payload.message_en) {
+          message_en = action.payload.message_en;
+        }
+        return { success: false, message_ch, message_en, sending: false };
       }
     }
     case SEND_MESSAGE_LOADING: {

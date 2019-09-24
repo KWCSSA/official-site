@@ -42,12 +42,12 @@ export const fetchAbout = () => async dispatch => {
 export const sendMessageLoading = () => ({ type: TYPES.SEND_MESSAGE_LOADING });
 
 export const sendMessage = message => async dispatch => {
-  const res = await axios.post('http://localhost:8080/api/contact/message', message); //FIXME: change to real api call
-  // const res = {
-  //   data: {
-  //     success: false
-  //   }
-  // };
+  // const res = await axios.post('/api/contact/message', message); //FIXME: change to real api call
+  const res = {
+    data: {
+      success: true
+    }
+  };
   dispatch({ type: TYPES.SEND_MESSAGE, payload: res.data });
 }
 
