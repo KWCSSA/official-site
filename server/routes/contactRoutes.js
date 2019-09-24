@@ -53,7 +53,7 @@ module.exports = app => {
     const mailOptions = {
       from: process.env.MESSAGE_EMAIL, // sender address
       to: 'it@uwcssa.com', // list of recipients
-      subject: `官网新消息 ${timeStamp}`, // subject line
+      subject: `【官网新消息】 ${userMessage.subject} | ${timeStamp}`, // subject line
       html: emailHTML // plain text body
     };
 
