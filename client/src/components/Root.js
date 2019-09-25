@@ -12,8 +12,7 @@ import About from './about/About';
 import Events from './events/Events';
 import Contact from './contact/Contact';
 import Footer from './Footer';
-
-const NotFound = () => <h2 style={{marginTop: "200px"}}>404</h2>;
+import NotFound404 from './NotFound404';
 
 var scroll = Scroll.animateScroll;
 
@@ -32,7 +31,7 @@ class Root extends React.Component {
           <Route exact path="/about" component={About} />
           <Route exact path="/events" component={Events} />
           <Route exact path="/contact" component={Contact} />
-          <Route component={NotFound} />
+          <Route component={NotFound404} />
         </Switch>
         <Footer />
       </React.Fragment>

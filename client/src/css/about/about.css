@@ -1,6 +1,10 @@
 .group-photo {
   width: 100%;
-  filter: brightness(100%);
+  filter: brightness(90%);
+}
+.group-photo-wrapper {
+  max-height: 300px;
+  overflow: hidden;
 }
 
 .section-title {
@@ -8,13 +12,25 @@
 }
 
 @media (min-width: 576px) {
+  .group-photo-wrapper {
+    max-height: 350px;
+  }
 }
 
 @media (min-width: 768px) {
+  .group-photo-wrapper {
+    max-height: 450px;
+  }
 }
 
 @media (min-width: 992px) {
+  .group-photo-wrapper {
+    max-height: 550px;
+  }
 }
 
 @media (min-width: 1200px) {
+  .group-photo-wrapper {
+    max-height: 750px;
+  }
 }
