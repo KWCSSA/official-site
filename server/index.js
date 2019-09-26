@@ -20,6 +20,9 @@ require('./routes/aboutRoutes')(app);
 // Handle contact routes
 require('./routes/contactRoutes')(app);
 
+// Handle admin routes
+require('./routes/adminRoutes')(app);
+
 app.use(express.static('client/build'));
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
