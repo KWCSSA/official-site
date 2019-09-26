@@ -65,3 +65,6 @@ test-assets/
 
 # MacOS DS_Store
 .DS_Store
+
+# Data files
+data/
