@@ -5,7 +5,7 @@ import '../../css/about/aboutCard.css';
 export default props => {
   console.log(props);
   return (
-    <div className="card shadow-sm border p-1">
+    <div className="card shadow-sm border hover-default p-1">
       <div className="row m-1 mt-3 mb-3">
         <div className="col-12 col-md-4 about-card-pic-wrapper">
           <img className="about-card-pic" src={props.pic} alt={`${props.position} ${props.name}`} />

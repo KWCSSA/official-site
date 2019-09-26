@@ -2,7 +2,7 @@
   width: 70%;
 }
 
-.card:hover {
+.hover-default:hover {
   cursor: default;
 }
 
@@ -35,6 +35,10 @@
 }
 
 @media (min-width: 768px) {
+  .about-card-pic-wrapper {
+    display: block;
+  }
+
   .about-card-pic {
     width: 100%;
   }
@@ -54,13 +58,11 @@
   }
   
   .about-card-detail-name {
-    font-size: 25px;
     margin-top: 5px;
   }
   
   .about-card-detail-desc {
-    margin-top: 25px;
-    font-size: 15px;
+    margin-top: 15px;
   }
 }
 
@@ -68,6 +70,20 @@
   div.card {
     margin-left: 100px;
     margin-right: 100px;
+  }
+
+  .about-card-detail-position {
+    margin-top: 10px;
+  }
+  
+  .about-card-detail-name {
+    font-size: 25px;
+    margin-top: 5px;
+  }
+  
+  .about-card-detail-desc {
+    margin-top: 25px;
+    font-size: 15px;
   }
 }
 
