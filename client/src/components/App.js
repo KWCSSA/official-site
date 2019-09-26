@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 import Root from './Root';
-
-const Admin = () => <h2>Admin</h2>;
+import Admin from './admin/Admin';
 
 class App extends React.Component {
   render() {
