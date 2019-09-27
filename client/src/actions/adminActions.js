@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { USER_LOGIN, FETCH_EVENT } from '../TYPES';
+import { USER_LOGIN, FETCH_EVENT, FETCH_HOME } from '../TYPES';
 
 const serverAddress = 'http://localhost:8080'; //FIXME use real api
 
@@ -38,4 +38,9 @@ export const addNewEvent = event => async dispatch => {
 export const deleteEvent = id => async dispatch => {
   const res = await axios.delete(`${serverAddress}/api/admin/event/delete/${id}`);
   dispatch({ type: FETCH_EVENT, payload: res.data });
+}
+
+export const updateHome = home => async dispatch => {
+  const res = await axios.put(`${serverAddress}/api/admin/home`, home);
+  dispatch({ type: FETCH_HOME, payload: res.data });
 }

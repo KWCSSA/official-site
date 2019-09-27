@@ -45,16 +45,16 @@ class Home extends React.Component {
               <div className="row">
                 <div className="underline mt-2" />
               </div>
-              <div className="card shadow border p-3 mb-5" onClick={() => {window.location = this.props.home.top.link}}>
+              <div className="card shadow border p-3 mb-5" onClick={() => { window.location = this.props.home.top.link }}>
                 <div className="row">
                   <div className="col-2 col-lg-1 d-flex justify-content-end align-items-center">
-                    <i className="material-icons" style={{fontSize: "30px"}}>stars</i>
+                    <i className="material-icons" style={{ fontSize: "30px" }}>stars</i>
                   </div>
                   <div className="col-8 col-lg-10 d-flex flex-column">
-                    <div style={{fontSize: "25px"}}>{this.props.home.top.title}</div>
+                    <div style={{ fontSize: "25px" }}>{this.props.home.top.title}</div>
                   </div>
                   <div className="col-2 col-lg-1 d-flex justify-content-end align-items-center">
-                    <i className="material-icons" style={{fontSize: "30px"}}>stars</i>
+                    <i className="material-icons" style={{ fontSize: "30px" }}>stars</i>
                   </div>
                 </div>
                 <div className="row mt-3 d-flex justify-content-center">

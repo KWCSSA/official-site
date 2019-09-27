@@ -68,3 +68,7 @@ test-assets/
 
 # Data files
 data/
+
+# Static files
+build/
+static/

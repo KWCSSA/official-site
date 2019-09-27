@@ -9,7 +9,7 @@ import * as actions from '../../actions';
 import Modal from './Modal';
 
 class AdminEventList extends React.Component {
-  state = { events: [], fetched: false, updated: false, editing: null, editingState: null, adding: false, addingState: null, modal: false, modalImg: null }
+  state = { events: [], updated: false, editing: null, editingState: null, adding: false, addingState: null, modal: false, modalImg: null }
 
   componentDidMount() {
     this.props.fetchEvent();
@@ -17,7 +17,7 @@ class AdminEventList extends React.Component {
 
   componentDidUpdate() {
     // console.log('update', this.state);
-    if (!this.state.fetched && this.props.event) {
+    if (this.props.event) {
       var oldEvents = JSON.stringify(this.state.events);
       var newEvents = JSON.stringify(this.props.event.events);
       if (oldEvents !== newEvents) {
@@ -44,7 +44,8 @@ class AdminEventList extends React.Component {
   };
 
   handleEditClick(id) {
-    window.scrollTo(0, 0);
+    window.location.href = "#";
+    window.location.href = "#EventList";
     this.setState({
       editing: id,
       editingState: _.cloneDeep(this.state.events.filter(element => element.id === id)[0])
@@ -137,7 +138,8 @@ class AdminEventList extends React.Component {
   }
 
   handleAddClick() {
-    window.scrollTo(0, 0);
+    window.location.href = "#";
+    window.location.href = "#EventList";
     this.setState({
       adding: true,
       addingState: {
@@ -231,8 +233,8 @@ class AdminEventList extends React.Component {
               </div>
             </div>
             <div className="col-1">
-              <button className="btn btn-outline-success" style={{ width: "100%" }} onClick={() => {this.handleConfirmClick()}}><i className="material-icons">check</i></button>
-              <button className="btn btn-outline-warning" style={{ width: "100%", marginTop: '10px' }} onClick={() => {this.handleCancelClick()}}><i className="material-icons">close</i></button>
+              <button className="btn btn-outline-success" style={{ width: "100%", height: "50px" }} onClick={() => {this.handleConfirmClick()}}><i className="material-icons">check</i></button>
+              <button className="btn btn-outline-warning" style={{ width: "100%", height: "50px", marginTop: '10px' }} onClick={() => {this.handleCancelClick()}}><i className="material-icons">close</i></button>
             </div>
           </div>
         </li>
@@ -294,7 +296,7 @@ class AdminEventList extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
+      <div id="EventList">
         <Modal show={this.state.modal} toggle={() => this.toggleModal()} src={this.state.modalImg} />
         {(() => {
           if (this.state.editing) {
@@ -305,7 +307,7 @@ class AdminEventList extends React.Component {
             return this.renderEvents();
           }
         })()}
-      </React.Fragment>
+      </div>
     );
   }
 }

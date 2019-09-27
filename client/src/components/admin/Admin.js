@@ -7,6 +7,7 @@ import * as actions from '../../actions';
 
 import AdminEventList from './AdminEventList';
 import AdminAboutList from './AdminAboutList';
+import AdminHome from './AdminHome';
 
 class Admin extends React.Component {
   state = { password: '', authed: false };
@@ -34,6 +35,10 @@ class Admin extends React.Component {
   renderAdminComponents() {
     return (
       <div className="container">
+        <div className="sections mb-5">
+          <h1 className="mt-3 mb-3">Home</h1>
+          <AdminHome />
+        </div>
         <div className="sections mb-5">
           <h1 className="mt-3 mb-3">Events</h1>
           <AdminEventList />
