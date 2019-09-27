@@ -9,18 +9,22 @@ import * as actions from '../../actions';
 import Modal from './Modal';
 
 class AdminEventList extends React.Component {
-  state = { events: [], fetched: false, updated: false, editing: null, editingState: null, modal: false, modalImg: null }
+  state = { events: [], fetched: false, updated: false, editing: null, editingState: null, adding: false, addingState: null, modal: false, modalImg: null }
 
   componentDidMount() {
     this.props.fetchEvent();
   }
 
   componentDidUpdate() {
+    // console.log('update', this.state);
     if (!this.state.fetched && this.props.event) {
-      this.setState({
-        fetched: true,
-        events: this.props.event.events
-      });
+      var oldEvents = JSON.stringify(this.state.events);
+      var newEvents = JSON.stringify(this.props.event.events);
+      if (oldEvents !== newEvents) {
+        this.setState({
+          events: this.props.event.events
+        });
+      }
     }
     if (this.state.updated) {
       this.props.updateEventList(this.state.events);
@@ -40,6 +44,7 @@ class AdminEventList extends React.Component {
   };
 
   handleEditClick(id) {
+    window.scrollTo(0, 0);
     this.setState({
       editing: id,
       editingState: _.cloneDeep(this.state.events.filter(element => element.id === id)[0])
@@ -47,10 +52,10 @@ class AdminEventList extends React.Component {
   }
 
   handleDeleteClick(id) {
+    this.props.deleteEvent(id);
     this.setState(prevState => {
       return {
-        events: prevState.events.filter(element => element.id !== id),
-        updated: true
+        events: prevState.events.filter(element => element.id !== id)
       }
     })
   }
@@ -94,6 +99,7 @@ class AdminEventList extends React.Component {
     const SortableEventList = SortableContainer(({ items }) => {
       return (
         <ul className="list-group">
+          <li className="list-group-item d-flex justify-content-center"><button className="btn btn-success w-25" onClick={() => this.handleAddClick()}><i className="material-icons">add</i></button></li>
           {items.map((value, index) => (
             <SortableEventItem key={`item-${index}`} index={index} value={value} />
           ))}
@@ -101,51 +107,141 @@ class AdminEventList extends React.Component {
       );
     });
 
-    if (this.state.fetched) {
-      return <SortableEventList items={this.state.events} onSortEnd={this.onSortEnd} useDragHandle={true} lockAxis="y" />;
-    }
+    return <SortableEventList items={this.state.events} onSortEnd={this.onSortEnd} useDragHandle={true} lockAxis="y" />;
   }
 
   handleConfirmClick() {
-    this.props.updateEventDetail(this.state.editingState);
-    this.setState({
-      editing: null,
-      editingState: null
-    })
+    if (this.state.adding) {
+      // this.props.updateEventDetail(this.state.editingState);
+      this.props.addNewEvent(this.state.addingState);
+      this.setState({
+        adding: null,
+        addingState: null
+      });
+    } else if (this.state.editing) {
+      this.props.updateEventDetail(this.state.editingState);
+      this.setState({
+        editing: null,
+        editingState: null
+      });
+    }
   }
 
   handleCancelClick() {
     this.setState({
       editing: null,
-      editingState: null
+      editingState: null,
+      adding: null,
+      addingState: null
     });
+  }
+
+  handleAddClick() {
+    window.scrollTo(0, 0);
+    this.setState({
+      adding: true,
+      addingState: {
+        title: '',
+        content: '',
+        link: '',
+        highlight: false,
+        pic: null
+      }
+    })
   }
 
   handleInputChange(field, value) {
     this.setState(prevState => {
-      var updatedEvents = prevState.editingState;
+      var updatedEvents = null;
+      if (this.state.editing) {
+        updatedEvents = prevState.editingState;
+      } else if (this.state.adding) {
+        updatedEvents = prevState.addingState;
+      }
       updatedEvents[field] = value;
-      return {
-        editingState: updatedEvents
+      if (this.state.editing) {
+        return {
+          addingState: updatedEvents
+        }
+      } else if (this.state.adding) {
+        return {
+          editingState: updatedEvents
+        }
       }
     });
   }
 
   handleFileSelect = event => {
-    var file = event.target.files[0];
+    const file = event.target.files[0];
     this.setState(prevState => {
-      var updatedEvents = prevState.editingState;
-      updatedEvents.pic = URL.createObjectURL(file);
+      var updatedEvents = null;
+      if (this.state.editing) {
+        updatedEvents = prevState.editingState;
+      } else if (this.state.adding) {
+        updatedEvents = prevState.addingState;
+      }
+      try {
+        updatedEvents.pic = URL.createObjectURL(file);
+      } catch (err) {
+        return;
+      }
       updatedEvents.fileChanged = true;
       updatedEvents.file = file;
-      return {
-        editingState: updatedEvents
+      if (this.state.editing) {
+        return {
+          editingState: updatedEvents
+        }
+      } else if (this.state.adding) {
+        return {
+          hidden: false,
+          addingState: updatedEvents
+        }
       }
     });
   }
 
   renderEdit() {
     var event = this.state.editingState; // Editing event
+    return (
+      <ul className="list-group">
+        <li className="list-group-item">
+          <div className="row">
+            <div className="col-1"></div>
+            <div className="col-10 d-flex flex-column">
+              <div className="d-flex flex-column">
+                <h4>Pic:</h4>
+                <div className="mt-3 mb-3" style={{height: "500px"}}><img style={{maxHeight: "100%"}} src={event.pic} alt={event.title} onClick={() => this.toggleModal(event.pic)} /></div>
+                <input className="mb-3" type="file" accept="image/jpeg" onChange={this.handleFileSelect} />
+              </div>
+              <div>
+                <h4>Title:</h4>
+                <input className="form-control mt-3 mb-3" value={event.title} onChange={(e) => this.handleInputChange('title', e.target.value)} />
+              </div>
+              <div>
+                <h4>Content:</h4>
+                <textarea style={{height: "200px"}} className="form-control mt-3 mb-3" value={event.content} onChange={(e) => this.handleInputChange('content', e.target.value)} />
+              </div>
+              <div>
+                <h4>Link:</h4>
+                <input className="form-control mt-3 mb-3" value={event.link} onChange={(e) => this.handleInputChange('link', e.target.value)} />
+              </div>
+              <div>
+                <h4>Highlighted:</h4>
+                <input className="form-control mt-3 mb-3" type="checkbox" style={{height: "25px", width: "25px"}} onChange={(e) => this.handleInputChange('highlight', e.target.checked)} checked={event.highlight} />
+              </div>
+            </div>
+            <div className="col-1">
+              <button className="btn btn-outline-success" style={{ width: "100%" }} onClick={() => {this.handleConfirmClick()}}><i className="material-icons">check</i></button>
+              <button className="btn btn-outline-warning" style={{ width: "100%", marginTop: '10px' }} onClick={() => {this.handleCancelClick()}}><i className="material-icons">close</i></button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    );
+  }
+
+  renderAdd() {
+    var event = this.state.addingState; // Editing event
     return (
       <ul className="list-group">
         <li className="list-group-item">
@@ -183,6 +279,7 @@ class AdminEventList extends React.Component {
       </ul>
     );
   }
+  
 
   toggleModal(src = null) {
     if (src) {
@@ -199,7 +296,15 @@ class AdminEventList extends React.Component {
     return (
       <React.Fragment>
         <Modal show={this.state.modal} toggle={() => this.toggleModal()} src={this.state.modalImg} />
-        {this.state.editing ? this.renderEdit() : this.renderEvents()}
+        {(() => {
+          if (this.state.editing) {
+            return this.renderEdit();
+          } else if (this.state.adding) {
+            return this.renderAdd();
+          } else {
+            return this.renderEvents();
+          }
+        })()}
       </React.Fragment>
     );
   }
