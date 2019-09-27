@@ -23,7 +23,6 @@ module.exports = app => {
 
   app.put('/api/admin/event/detail/image/:eventId', async (req, res) => {
     const targetId = req.params.eventId;
-    console.log(req.files);
     if (!req.files) {
       var eventList = JSON.parse(await fs.readFileSync(eventDataFilePath));
       return res.send(eventList);
@@ -47,9 +46,7 @@ module.exports = app => {
   });
 
   app.put('/api/admin/event/list', async (req, res) => {
-    var eventList = JSON.parse(await fs.readFileSync(eventDataFilePath));
     var updatedList = req.body;
-    console.log(updatedList.length, eventList.length);
     await fs.writeFileSync(eventDataFilePath, JSON.stringify(updatedList));
     res.send(updatedList);
   });
