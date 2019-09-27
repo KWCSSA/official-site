@@ -87,8 +87,8 @@ class AdminEventList extends React.Component {
             </div>
           </div>
           <div className="col-1">
-            <button className="btn btn-outline-dark" style={{ width: "100%" }} onClick={() => {this.handleEditClick(event.id)}}><i className="material-icons">edit</i></button>
-            <button className="btn btn-outline-danger" style={{ width: "100%", marginTop: '10px' }} onClick={() => {this.handleDeleteClick(event.id)}}><i className="material-icons">delete_forever</i></button>
+            <button className="btn btn-outline-dark d-flex justify-content-center align-items-center" style={{ width: "100%", height: "50px" }} onClick={() => {this.handleEditClick(event.id)}}><i className="material-icons">edit</i></button>
+            <button className="btn btn-outline-danger d-flex justify-content-center align-items-center" style={{ width: "100%", height: "50px", marginTop: '10px' }} onClick={() => {this.handleDeleteClick(event.id)}}><i className="material-icons">delete_forever</i></button>
           </div>
         </div>
       );
@@ -251,7 +251,7 @@ class AdminEventList extends React.Component {
               <div className="d-flex flex-column">
                 <h4>Pic:</h4>
                 <div className="mt-3 mb-3" style={{height: "500px"}}><img style={{maxHeight: "100%"}} src={event.pic} alt={event.title} onClick={() => this.toggleModal(event.pic)} /></div>
-                <input className="mb-3" type="file" accept="image/*" onChange={this.handleFileSelect} />
+                <input className="mb-3" type="file" accept="image/jpeg" onChange={this.handleFileSelect} />
               </div>
               <div>
                 <h4>Title:</h4>

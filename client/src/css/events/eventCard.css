@@ -1,4 +1,4 @@
-.card {
+div.card {
   margin-top: 30px;
   margin-left: 0px;
   margin-right: 0px;
@@ -48,9 +48,9 @@
 }
 
 @media (min-width: 1200px) {
-  .card {
-    /* margin-left: 110px;
-    margin-right: 110px; */
+  div.card {
+    margin-left: 50px;
+    margin-right: 50px;
   }
 
   .event-content {

@@ -38,7 +38,7 @@ export default class NavBar extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="white" className="fixed-top shadow-sm" light expand="md">
+        <Navbar color="white" className="fixed-top shadow-sm" light expand="lg">
           <div className="container">
           <Link className="navbar-brand" to="/" onClick={() => this.navBarClick('/')}><img className="nav-logo" src="/logo-wide.png" alt="KWCSSA banner" /></Link>
           <NavbarToggler onClick={this.toggle} />
@@ -48,10 +48,13 @@ export default class NavBar extends React.Component {
                 <Link to="/" className="nav-link" onClick={() => this.navBarClick('/')}>HOME</Link>
               </NavItem>
               <NavItem className="ml-1 mr-1">
-                <Link to="/about" className="nav-link" onClick={() => this.navBarClick('/about')}>ABOUT</Link>
+                <Link to="/events" className="nav-link" onClick={() => this.navBarClick('/events')}>EVENTS</Link>
               </NavItem>
               <NavItem className="ml-1 mr-1">
-                <Link to="/events" className="nav-link" onClick={() => this.navBarClick('/events')}>EVENTS</Link>
+                <Link to="/freshman" className="nav-link" onClick={() => this.navBarClick('/freshman')}>新生相关</Link>
+              </NavItem>
+              <NavItem className="ml-1 mr-1">
+                <Link to="/about" className="nav-link" onClick={() => this.navBarClick('/about')}>ABOUT</Link>
               </NavItem>
               <NavItem className="ml-1 mr-1">
                 <Link to="/contact" className="nav-link" onClick={() => this.navBarClick('/contact')}>CONTACT</Link>

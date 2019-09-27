@@ -59,8 +59,8 @@
 }
 
 @media (min-width: 1200px) {
-  .card {
-    margin-left: 110px;
-    margin-right: 110px;
+  .card-img {
+    max-height: 1000px;
+    overflow: hidden;
   }
 }
