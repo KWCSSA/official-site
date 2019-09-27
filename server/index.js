@@ -10,6 +10,10 @@ app.use(bodyParser.json())
 
 app.use('/static', express.static('static'));
 
+// TODO: secure api endpoint
+
+// Handle home routes
+require('./routes/homeRoutes')(app);
 
 // Handle event routes
 require('./routes/eventRoutes')(app);

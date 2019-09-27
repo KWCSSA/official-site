@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const eventDataFilePath = path.join(__dirname, '../data/event/events.json');
+const eventDataFilePath = path.join(__dirname, '../data/events.json');
 
 module.exports = app => {
   app.put('/api/admin/event/detail/:eventId', async (req, res) => {
@@ -23,6 +23,7 @@ module.exports = app => {
 
   app.put('/api/admin/event/detail/image/:eventId', async (req, res) => {
     const targetId = req.params.eventId;
+    console.log(req.files);
     if (!req.files) {
       var eventList = JSON.parse(await fs.readFileSync(eventDataFilePath));
       return res.send(eventList);
@@ -43,11 +44,6 @@ module.exports = app => {
     });
     await fs.writeFileSync(eventDataFilePath, JSON.stringify(updatedList));
     res.send(updatedList);
-  });
-
-  app.get('/api/admin/event/list', async (req, res) => {
-    var eventList = JSON.parse(await fs.readFileSync(eventDataFilePath));
-    res.send(eventList);
   });
 
   app.put('/api/admin/event/list', async (req, res) => {
