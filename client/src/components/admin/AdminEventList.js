@@ -44,7 +44,7 @@ class AdminEventList extends React.Component {
   };
 
   handleEditClick(id) {
-    window.location.href = "#";
+    // window.location.href = "#";
     window.location.href = "#EventList";
     this.setState({
       editing: id,
@@ -81,7 +81,7 @@ class AdminEventList extends React.Component {
               <p>{event.content}</p>
             </div>
             <div>
-              <a href={event.link}><p>{event.link}</p></a>
+              <a href={event.link} target="_blank" rel="noopener noreferrer"><p>{event.link}</p></a>
             </div>
             <div>
               <h5>主页显示: {event.highlight ? 'Yes' : 'No'}</h5>
@@ -138,7 +138,7 @@ class AdminEventList extends React.Component {
   }
 
   handleAddClick() {
-    window.location.href = "#";
+    // window.location.href = "#";
     window.location.href = "#EventList";
     this.setState({
       adding: true,
@@ -195,7 +195,6 @@ class AdminEventList extends React.Component {
         }
       } else if (this.state.adding) {
         return {
-          hidden: false,
           addingState: updatedEvents
         }
       }
@@ -203,7 +202,7 @@ class AdminEventList extends React.Component {
   }
 
   renderEdit() {
-    var event = this.state.editingState; // Editing event
+    var event = this.state.editingState;
     return (
       <ul className="list-group">
         <li className="list-group-item">
@@ -211,24 +210,24 @@ class AdminEventList extends React.Component {
             <div className="col-1"></div>
             <div className="col-10 d-flex flex-column">
               <div className="d-flex flex-column">
-                <h4>Pic:</h4>
+                <h4>图片:</h4>
                 <div className="mt-3 mb-3" style={{height: "500px"}}><img style={{maxHeight: "100%"}} src={event.pic} alt={event.title} onClick={() => this.toggleModal(event.pic)} /></div>
                 <input className="mb-3" type="file" accept="image/jpeg" onChange={this.handleFileSelect} />
               </div>
               <div>
-                <h4>Title:</h4>
+                <h4>标题:</h4>
                 <input className="form-control mt-3 mb-3" value={event.title} onChange={(e) => this.handleInputChange('title', e.target.value)} />
               </div>
               <div>
-                <h4>Content:</h4>
+                <h4>简介:</h4>
                 <textarea style={{height: "200px"}} className="form-control mt-3 mb-3" value={event.content} onChange={(e) => this.handleInputChange('content', e.target.value)} />
               </div>
               <div>
-                <h4>Link:</h4>
+                <h4>链接:</h4>
                 <input className="form-control mt-3 mb-3" value={event.link} onChange={(e) => this.handleInputChange('link', e.target.value)} />
               </div>
               <div>
-                <h4>Highlighted:</h4>
+                <h4>主页显示:</h4>
                 <input className="form-control mt-3 mb-3" type="checkbox" style={{height: "25px", width: "25px"}} onChange={(e) => this.handleInputChange('highlight', e.target.checked)} checked={event.highlight} />
               </div>
             </div>
@@ -243,7 +242,7 @@ class AdminEventList extends React.Component {
   }
 
   renderAdd() {
-    var event = this.state.addingState; // Editing event
+    var event = this.state.addingState;
     return (
       <ul className="list-group">
         <li className="list-group-item">
@@ -251,24 +250,24 @@ class AdminEventList extends React.Component {
             <div className="col-1"></div>
             <div className="col-10 d-flex flex-column">
               <div className="d-flex flex-column">
-                <h4>Pic:</h4>
+                <h4>图片:</h4>
                 <div className="mt-3 mb-3" style={{height: "500px"}}><img style={{maxHeight: "100%"}} src={event.pic} alt={event.title} onClick={() => this.toggleModal(event.pic)} /></div>
                 <input className="mb-3" type="file" accept="image/jpeg" onChange={this.handleFileSelect} />
               </div>
               <div>
-                <h4>Title:</h4>
+                <h4>标题:</h4>
                 <input className="form-control mt-3 mb-3" value={event.title} onChange={(e) => this.handleInputChange('title', e.target.value)} />
               </div>
               <div>
-                <h4>Content:</h4>
+                <h4>简介:</h4>
                 <textarea style={{height: "300px"}} className="form-control mt-3 mb-3" value={event.content} onChange={(e) => this.handleInputChange('content', e.target.value)} />
               </div>
               <div>
-                <h4>Link:</h4>
+                <h4>链接:</h4>
                 <input className="form-control mt-3 mb-3" value={event.link} onChange={(e) => this.handleInputChange('link', e.target.value)} />
               </div>
               <div>
-                <h4>Highlighted:</h4>
+                <h4>主页显示:</h4>
                 <input className="form-control mt-3 mb-3" type="checkbox" style={{height: "25px", width: "25px"}} onChange={(e) => this.handleInputChange('highlight', e.target.checked)} checked={event.highlight} />
               </div>
             </div>
@@ -296,7 +295,7 @@ class AdminEventList extends React.Component {
 
   render() {
     return (
-      <div id="EventList">
+      <div>
         <Modal show={this.state.modal} toggle={() => this.toggleModal()} src={this.state.modalImg} />
         {(() => {
           if (this.state.editing) {

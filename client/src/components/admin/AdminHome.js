@@ -85,6 +85,8 @@ class AdminHome extends React.Component {
   }
 
   handleEditClick() {
+    // window.location.href = "#";
+    window.location.href = "#Home";
     this.setState({
       editing: true,
       editingState: _.cloneDeep(this.state.home)
@@ -107,7 +109,7 @@ class AdminHome extends React.Component {
                     <h3 className="mb-3">今日头条：</h3>
                     <h4 className="mb-2">标题：</h4>
                     <h5 className="mb-2">{this.state.home.top.title}</h5>
-                    <a className="d-flex" href={this.state.home.top.link}><i className="material-icons" style={{ fontSize: "30px" }}>link</i><h4>链接</h4></a>
+                    <a className="d-flex" href={this.state.home.top.link} target="_blank" rel="noopener noreferrer"><i className="material-icons" style={{ fontSize: "30px" }}>link</i><h4>链接</h4></a>
                   </li>
                 </ul>
               </div>
@@ -123,9 +125,9 @@ class AdminHome extends React.Component {
 
   render() {
     return (
-      <div id="Home">
+      <React.Fragment>
         {this.state.editing ? this.renderEditContent() : this.renderContent()}
-      </div>
+      </React.Fragment>
     );
   }
 }

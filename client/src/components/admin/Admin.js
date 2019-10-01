@@ -8,6 +8,7 @@ import * as actions from '../../actions';
 import AdminEventList from './AdminEventList';
 import AdminAboutList from './AdminAboutList';
 import AdminHome from './AdminHome';
+import AdminAboutPhoto from './AdminAboutPhoto';
 
 class Admin extends React.Component {
   state = { password: '', authed: false };
@@ -35,18 +36,25 @@ class Admin extends React.Component {
   renderAdminComponents() {
     return (
       <div className="container">
-        <div className="sections mb-5">
+        <div className="sidebar">
+          <button className="btn btn-outline-dark" onClick={() => {window.location.href = "#Home";}}>Home</button>
+          <button className="btn btn-outline-dark" style={{marginTop: "5px"}} onClick={() => {window.location.href = "#EventList";}}>Events</button>
+          <button className="btn btn-outline-dark" style={{marginTop: "5px"}} onClick={() => {window.location.href = "#AboutList";}}>About</button>
+        </div>
+        <div id="Home" className="sections mb-5">
           <h1 className="mt-3 mb-3">Home</h1>
           <AdminHome />
         </div>
-        <div className="sections mb-5">
+        <div id="EventList" className="sections mb-5">
           <h1 className="mt-3 mb-3">Events</h1>
           <AdminEventList />
         </div>
-        <div className="sections">
+        <div id="AboutList" className="sections">
           <h1 className="mt-3 mb-3">About</h1>
-          {/* <AdminAboutList /> */}
+          <AdminAboutPhoto />
+          <AdminAboutList />
         </div>
+        <div style={{marginTop: "100px"}}></div>
       </div>
     );
   }

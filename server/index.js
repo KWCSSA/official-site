@@ -35,7 +35,7 @@ require('./routes/aboutRoutes')(app);
 require('./routes/contactRoutes')(app);
 
 // Handle admin routes
-require('./routes/adminRoutes')(app);
+require('./routes/admin/adminRoutes')(app);
 
 app.use(express.static('client/build'));
 app.get('*', (req, res) => {

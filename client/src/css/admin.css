@@ -9,3 +9,11 @@
 .drag-handle {
   cursor: grab;
 }
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
