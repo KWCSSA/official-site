@@ -51,7 +51,7 @@ class Home extends React.Component {
                     <i className="material-icons" style={{ fontSize: "30px" }}>stars</i>
                   </div>
                   <div className="col-8 col-lg-10 d-flex flex-column">
-                    <div style={{ fontSize: "25px" }}>{this.props.home.top.title}</div>
+                    <div className="top-title">{this.props.home.top.title}</div>
                   </div>
                   <div className="col-2 col-lg-1 d-flex justify-content-end align-items-center">
                     <i className="material-icons" style={{ fontSize: "30px" }}>stars</i>

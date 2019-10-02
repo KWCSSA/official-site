@@ -1,0 +1,11 @@
+div.back-to-top {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin: 20px;
+  height: 45px;
+  width: 45px;
+  cursor: pointer;
+  /* background-color:  */
+  color: #ffffff;
+}

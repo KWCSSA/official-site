@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import * as actions from '../actions';
 
+import '../css/root.css';
+
 import Scroll from 'react-scroll';
 
 import NavBar from './NavBar';
@@ -18,9 +20,40 @@ import NotFound404 from './NotFound404';
 var scroll = Scroll.animateScroll;
 
 class Root extends React.Component {
+  state = { showBackToTop: false }
+
   componentDidMount() {
     this.props.fetchEvent();
     this.props.fetchAbout();
+    window.addEventListener('scroll', this.onPageScroll.bind(this));
+  }
+
+  onPageScroll() {
+    const scrollPos = document.body.scrollTop || document.documentElement.scrollTop;
+    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolledPercent = scrollPos / windowHeight;
+
+    if (scrolledPercent > 0.45) {
+      if (this.state.showBackToTop !== true) {
+        this.setState({
+          showBackToTop: true
+        });
+      }
+    } else {
+      if (this.state.showBackToTop !== false) {
+        this.setState({
+          showBackToTop: false
+        });
+      }
+    }
+  }
+
+  renderBackToTopBtn() {
+    return (
+      <div className="d-flex justify-content-center align-items-center back-to-top">
+        <i className="material-icons" style={{ color: '#fff' }}>keyboard_arrow_up</i>
+      </div>
+    );
   }
 
   render() {
@@ -36,6 +69,7 @@ class Root extends React.Component {
           <Route component={NotFound404} />
         </Switch>
         <Footer />
+        {this.renderBackToTopBtn()}
       </React.Fragment>
     );
   }
