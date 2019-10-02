@@ -5,3 +5,4 @@ export const CLEAR_MESSAGE = 'CLEAR_MESSAGE';
 export const SEND_MESSAGE_LOADING = 'SEND_MESSAGE_LOADING';
 export const USER_LOGIN = 'USER_LOGIN';
 export const FETCH_HOME = 'FETCH_HOME';
+export const FETCH_FRESHMAN = 'FETCH_FRESHMAN';

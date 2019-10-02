@@ -50,7 +50,7 @@ class Root extends React.Component {
 
   renderBackToTopBtn() {
     return (
-      <div className="d-flex justify-content-center align-items-center back-to-top">
+      <div className="d-flex justify-content-center align-items-center back-to-top" onClick={() => {scroll.scrollToTop()}}>
         <i className="material-icons" style={{ color: '#fff' }}>keyboard_arrow_up</i>
       </div>
     );
@@ -69,7 +69,7 @@ class Root extends React.Component {
           <Route component={NotFound404} />
         </Switch>
         <Footer />
-        {this.renderBackToTopBtn()}
+        {this.state.showBackToTop ? this.renderBackToTopBtn() : ''}
       </React.Fragment>
     );
   }

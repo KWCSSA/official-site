@@ -12,7 +12,6 @@ class Home extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log(this.props.home);
   }
 
   render() {
