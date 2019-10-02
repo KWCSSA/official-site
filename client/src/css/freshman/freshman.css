@@ -7,6 +7,7 @@
   background-color: rgba(0, 0, 0, 0.2);
   background-size: cover;
   color: #ffffff;
+  margin-top: 60px;
 }
 
 .congrats-en-text {
@@ -20,7 +21,7 @@
 
 .congrats-message {
   font-family: 'Ma Shan Zheng', cursive;
-  background-color: #ffffff;
+  background-color: #fffef5;
   background-image: url('/congrats-message-background.png');
   background-repeat: repeat;
   box-shadow: 0 5px 10px rgba(0,0,0,.1);
@@ -30,6 +31,11 @@
 .congrats-message-text {
   font-size: 20px;
   margin-bottom: 30px;
+}
+
+.booklet-cover {
+  max-width: 90%;
+  box-shadow: 0 5px 15px rgba(0,0,0,.65);
 }
 
 @media (min-width: 576px) {
@@ -50,6 +56,10 @@
   .congrats-message-text {
     font-size: 25px;
     margin-bottom: 50px;
+  }
+
+  .booklet-cover {
+    max-width: 80%;
   }
 }
 

@@ -33,6 +33,9 @@ export default class NavBar extends React.Component {
     } else {
       window.scrollTo(0, 0);
     }
+    this.setState({
+      isOpen: false
+    })
   }
 
   render() {
