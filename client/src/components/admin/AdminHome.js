@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import * as actions from '../../actions';
 
 class AdminHome extends React.Component {
-  state = { home: null, editing: false, editingState: null }
+  state = { home: null, editing: null, editingState: null }
 
   componentDidMount() {
     this.props.fetchHome();
@@ -26,14 +26,14 @@ class AdminHome extends React.Component {
   handleConfirmClick() {
     this.props.updateHome(this.state.editingState);
     this.setState({
-      editing: false,
+      editing: null,
       editingState: null
     });
   }
 
   handleCancelClick() {
     this.setState({
-      editing: false,
+      editing: null,
       editingState: null
     });
   }
@@ -109,7 +109,7 @@ class AdminHome extends React.Component {
                     <h3 className="mb-3">今日头条：</h3>
                     <h4 className="mb-2">标题：</h4>
                     <h5 className="mb-2">{this.state.home.top.title}</h5>
-                    <a className="d-flex" href={this.state.home.top.link} target="_blank" rel="noopener noreferrer"><i className="material-icons" style={{ fontSize: "30px" }}>link</i><h4>链接</h4></a>
+                    <a className="d-flex" href={this.state.home.top.link} target="_blank" rel="noopener noreferrer"><h4 style={{ textDecoration: "underline" }}>链接</h4></a>
                   </li>
                 </ul>
               </div>

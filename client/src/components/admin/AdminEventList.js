@@ -16,7 +16,6 @@ class AdminEventList extends React.Component {
   }
 
   componentDidUpdate() {
-    // console.log('update', this.state);
     if (this.props.event) {
       var oldEvents = JSON.stringify(this.state.events);
       var newEvents = JSON.stringify(this.props.event.events);
@@ -44,7 +43,6 @@ class AdminEventList extends React.Component {
   };
 
   handleEditClick(id) {
-    // window.location.href = "#";
     window.location.href = "#EventList";
     this.setState({
       editing: id,
@@ -113,7 +111,6 @@ class AdminEventList extends React.Component {
 
   handleConfirmClick() {
     if (this.state.adding) {
-      // this.props.updateEventDetail(this.state.editingState);
       this.props.addNewEvent(this.state.addingState);
       this.setState({
         adding: null,
@@ -138,7 +135,6 @@ class AdminEventList extends React.Component {
   }
 
   handleAddClick() {
-    // window.location.href = "#";
     window.location.href = "#EventList";
     this.setState({
       adding: true,

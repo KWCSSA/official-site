@@ -10,6 +10,8 @@ export const adminLogin = password => async dispatch => {
   dispatch({ type: USER_LOGIN, payload: res.data });
 }
 
+
+
 // Action for home section
 export const updateHome = home => async dispatch => {
   const res = await axios.put(`${serverAddress}/api/admin/home`, home);
@@ -17,19 +19,21 @@ export const updateHome = home => async dispatch => {
   dispatch({ type: FETCH_HOME, payload: res.data });
 }
 
+
+
 // Actions for events section
-export const updateEventList = events => async dispatch => {
+export const updateEventList = events => async (dispatch, getState) => {
   axios.put(`${serverAddress}/api/admin/event/list`, events);
-  const bannerRes = await axios.get(`${serverAddress}/api/event/banners`);
+
   const payload = {
     events,
-    banners: bannerRes.data
+    banners: getState().event.banners
   }
 
   dispatch({ type: FETCH_EVENT, payload });
 }
 
-export const updateEventDetail = event => async dispatch => {
+export const updateEventDetail = event => async (dispatch, getState) => {
   var res = null;
   if (event.fileChanged) {
     var fileData = new FormData();
@@ -38,60 +42,56 @@ export const updateEventDetail = event => async dispatch => {
   }
   res = await axios.put(`${serverAddress}/api/admin/event/detail/${event.id}`, event);
 
-  const bannerRes = await axios.get(`${serverAddress}/api/event/banners`);
   const payload = {
     events: res.data,
-    banners: bannerRes.data
+    banners: getState().event.banners
   }
  
   dispatch({ type: FETCH_EVENT, payload });
 }
 
-export const addNewEvent = event => async dispatch => {
+export const addNewEvent = event => async (dispatch, getState) => {
   var res = null;
   var fileData = new FormData();
   fileData.append('newImage', event.file);
   res = await axios.post(`${serverAddress}/api/admin/event/new`, event);
   res = await axios.put(`${serverAddress}/api/admin/event/detail/image/${res.data}`, fileData);
 
-  const bannerRes = await axios.get(`${serverAddress}/api/event/banners`);
   const payload = {
     events: res.data,
-    banners: bannerRes.data
+    banners: getState().event.banners
   }
   
   dispatch({ type: FETCH_EVENT, payload });
 }
 
-export const deleteEvent = id => async dispatch => {
+export const deleteEvent = id => async (dispatch, getState) => {
   const res = await axios.delete(`${serverAddress}/api/admin/event/delete/${id}`);
 
-  const bannerRes = await axios.get(`${serverAddress}/api/event/banners`);
   const payload = {
     events: res.data,
-    banners: bannerRes.data
+    banners: getState().event.banners
   }
   
   dispatch({ type: FETCH_EVENT, payload });
 }
 
-export const addNewBanner = banner => async dispatch => {
+export const addNewBanner = banner => async (dispatch, getState) => {
   var res = null;
   var fileData = new FormData();
   fileData.append('newImage', banner.file);
   res = await axios.post(`${serverAddress}/api/admin/event/banner/new`, banner);
   res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${res.data}`, fileData);
 
-  const eventRes = await axios.get(`${serverAddress}/api/event/list`);
   const payload = {
-    events: eventRes.data,
+    events: getState().event.events,
     banners: res.data
   }
   
   dispatch({ type: FETCH_EVENT, payload});
 }
 
-export const updateBannerDetail = banner => async dispatch => {
+export const updateBannerDetail = banner => async (dispatch, getState) => {
   var res = null;
   if (banner.fileChanged) {
     var fileData = new FormData();
@@ -100,40 +100,40 @@ export const updateBannerDetail = banner => async dispatch => {
   }
   res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/${banner.id}`, banner);
 
-  const eventRes = await axios.get(`${serverAddress}/api/event/list`);
   const payload = {
-    events: eventRes.data,
+    events: getState().event.events,
     banners: res.data
   }
  
   dispatch({ type: FETCH_EVENT, payload });
 }
 
-export const deleteBanner = id => async dispatch => {
+export const deleteBanner = id => async (dispatch, getState) => {
   const res = await axios.delete(`${serverAddress}/api/admin/event/banner/delete/${id}`);
 
-  const eventRes = await axios.get(`${serverAddress}/api/event/list`);
   const payload = {
-    events: eventRes.data,
+    events: getState().event.events,
     banners: res.data
   }
 
   dispatch({ type: FETCH_EVENT, payload });
 }
 
+
+
 // Actions for about section
-export const updateAboutList = about => dispatch => {
+export const updateAboutList = about => (dispatch, getState) => {
   axios.put(`${serverAddress}/api/admin/about/list`, about);
 
   const payload = {
     people: about,
-    photo: `${serverAddress}/static/about-group-photo.jpg?${Date.now()}`
+    photo: getState().about.photo
   }
   
   dispatch({ type: FETCH_ABOUT, payload });
 }
 
-export const updateAboutDetail = person => async dispatch => {
+export const updateAboutDetail = person => async (dispatch, getState) => {
   // dispatch({ type: FETCH_ABOUT, payload: res.data });
   var res = null;
   if (person.fileChanged) {
@@ -145,13 +145,13 @@ export const updateAboutDetail = person => async dispatch => {
 
   const payload = {
     people: res.data,
-    photo: `${serverAddress}/static/about-group-photo.jpg?${Date.now()}`
+    photo: getState().about.photo
   }
 
   dispatch({ type: FETCH_ABOUT, payload });
 }
 
-export const addNewAbout = person => async dispatch => {
+export const addNewAbout = person => async (dispatch, getState) => {
   var res = null;
   var fileData = new FormData();
   fileData.append('newImage', person.file);
@@ -160,18 +160,18 @@ export const addNewAbout = person => async dispatch => {
 
   const payload = {
     people: res.data,
-    photo: `${serverAddress}/static/about-group-photo.jpg?${Date.now()}`
+    photo: getState().about.photo
   }
 
   dispatch({ type: FETCH_ABOUT, payload });
 }
 
-export const deleteAbout = id => async dispatch => {
+export const deleteAbout = id => async (dispatch, getState) => {
   const res = await axios.delete(`${serverAddress}/api/admin/about/delete/${id}`);
 
   const payload = {
     people: res.data,
-    photo: `${serverAddress}/static/about-group-photo.jpg?${Date.now()}`
+    photo: getState().about.photo
   }
 
   dispatch({ type: FETCH_ABOUT, payload });

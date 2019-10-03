@@ -168,29 +168,29 @@ class AdminAboutList extends React.Component {
     });
   }
 
-  handleFileSelect = event => {
-    const file = event.target.files[0];
+  handleFileSelect = about => {
+    const file = about.target.files[0];
     this.setState(prevState => {
-      var updatedEvents = null;
+      var updatedAbout = null;
       if (this.state.editing) {
-        updatedEvents = prevState.editingState;
+        updatedAbout = prevState.editingState;
       } else if (this.state.adding) {
-        updatedEvents = prevState.addingState;
+        updatedAbout = prevState.addingState;
       }
       try {
-        updatedEvents.pic = URL.createObjectURL(file);
+        updatedAbout.pic = URL.createObjectURL(file);
       } catch (err) {
         return;
       }
-      updatedEvents.fileChanged = true;
-      updatedEvents.file = file;
+      updatedAbout.fileChanged = true;
+      updatedAbout.file = file;
       if (this.state.editing) {
         return {
-          editingState: updatedEvents
+          editingState: updatedAbout
         }
       } else if (this.state.adding) {
         return {
-          addingState: updatedEvents
+          addingState: updatedAbout
         }
       }
     });
