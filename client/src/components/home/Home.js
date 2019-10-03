@@ -1,10 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Slider from 'react-slick';
 
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import '../../css/home/home.css';
-import HighlightEvent from './HighlightEvent';
 
 import * as actions from '../../actions';
+
+import HighlightEvent from './HighlightEvent';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -12,6 +16,69 @@ class Home extends React.Component {
   }
 
   componentDidUpdate() {
+  }
+
+  renderTodayTop() {
+    if (this.props.home) {
+      return (
+        <section className="section-wrapper mb-3 pb-4">
+          <div className="container">
+            <div className="row pt-5 text-center">
+              <div className="col footer-text">今日头条</div> {/* FIXME: come up with a better section name */}
+            </div>
+            <div className="row">
+              <div className="underline mt-2" />
+            </div>
+            <div className="card shadow border p-3 mb-5" onClick={() => { window.location = this.props.home.top.link }}>
+              <div className="row">
+                <div className="col-2 col-lg-1 d-flex justify-content-end align-items-center">
+                  <i className="material-icons" style={{ fontSize: "30px" }}>stars</i>
+                </div>
+                <div className="col-8 col-lg-10 d-flex flex-column">
+                  <div className="top-title">{this.props.home.top.title}</div>
+                </div>
+                <div className="col-2 col-lg-1 d-flex justify-content-end align-items-center">
+                  <i className="material-icons" style={{ fontSize: "30px" }}>stars</i>
+                </div>
+              </div>
+              <div className="row mt-3 d-flex justify-content-center">
+                <small className="text-muted">点击查看详情</small>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+  }
+
+  renderBanners() {
+    if (this.props.home) {
+      const settings = {
+        arrows: false,
+        dots: true,
+        lazyload: true,
+        infinite: true,
+        speed: 800,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 4000,
+        pauseOnHover: true
+      }
+      return (
+        <section className="section-wrapper mb-3">
+          <div className="containers">
+          <Slider className="banners" {...settings}>
+            {this.props.home.banners.map(banner => {
+              return (
+                <a href={banner.link}><img src={banner.pic} alt="" style={{width: "100%"}} /></a>
+              );
+            })}
+          </Slider>
+            </div>
+        </section>
+      );
+    }
   }
 
   render() {
@@ -35,34 +102,8 @@ class Home extends React.Component {
             </div>
           </div>
         </section>
-        <section className="section-wrapper mb-3 pb-5">
-          {this.props.home ? (
-            <div className="container">
-              <div className="row pt-5 text-center">
-                <div className="col footer-text">今日头条</div> {/* FIXME: come up with a better section name */}
-              </div>
-              <div className="row">
-                <div className="underline mt-2" />
-              </div>
-              <div className="card shadow border p-3 mb-5" onClick={() => { window.location = this.props.home.top.link }}>
-                <div className="row">
-                  <div className="col-2 col-lg-1 d-flex justify-content-end align-items-center">
-                    <i className="material-icons" style={{ fontSize: "30px" }}>stars</i>
-                  </div>
-                  <div className="col-8 col-lg-10 d-flex flex-column">
-                    <div className="top-title">{this.props.home.top.title}</div>
-                  </div>
-                  <div className="col-2 col-lg-1 d-flex justify-content-end align-items-center">
-                    <i className="material-icons" style={{ fontSize: "30px" }}>stars</i>
-                  </div>
-                </div>
-                <div className="row mt-3 d-flex justify-content-center">
-                  <small className="text-muted">点击查看详情</small>
-                </div>
-              </div>
-            </div>
-          ) : ''}
-        </section>
+        {this.renderBanners()}
+        {this.renderTodayTop()}
         <section className="section-wrapper">
           <div className="container pb-5"><HighlightEvent /></div>
         </section>
