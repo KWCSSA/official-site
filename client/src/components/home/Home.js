@@ -1,9 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Slider from 'react-slick';
 
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import '../../css/home/home.css';
 
 import * as actions from '../../actions';
@@ -51,36 +48,6 @@ class Home extends React.Component {
     }
   }
 
-  renderBanners() {
-    if (this.props.home) {
-      const settings = {
-        arrows: false,
-        dots: true,
-        lazyload: true,
-        infinite: true,
-        speed: 800,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 4000,
-        pauseOnHover: true
-      }
-      return (
-        <section className="section-wrapper mb-3">
-          <div className="containers">
-          <Slider className="banners" {...settings}>
-            {this.props.home.banners.map(banner => {
-              return (
-                <a href={banner.link}><img src={banner.pic} alt="" style={{width: "100%"}} /></a>
-              );
-            })}
-          </Slider>
-            </div>
-        </section>
-      );
-    }
-  }
-
   render() {
     return (
       <React.Fragment>
@@ -102,7 +69,6 @@ class Home extends React.Component {
             </div>
           </div>
         </section>
-        {this.renderBanners()}
         {this.renderTodayTop()}
         <section className="section-wrapper">
           <div className="container pb-5"><HighlightEvent /></div>

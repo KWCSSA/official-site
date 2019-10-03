@@ -15,7 +15,7 @@ const About = props => {
   }
 
   return (
-    <div style={{background: "#fafafa"}} className="pt-5 pb-5">
+    <div style={{background: "#fafafa"}} className="pb-5">
       <div className="group-photo-wrapper">
         {props.about ? <img className='group-photo' src={props.about.photo} alt='group together' /> : ''}
       </div>

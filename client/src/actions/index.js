@@ -13,8 +13,13 @@ export const fetchHome = () => async dispatch => {
 }
 
 export const fetchEvent = () => async dispatch => {
-  const res = await axios.get(`${serverAddress}/api/event/list`);
-  dispatch({ type: TYPES.FETCH_EVENT, payload: res.data });
+  const eventRes = await axios.get(`${serverAddress}/api/event/list`);
+  const bannerRes = await axios.get(`${serverAddress}/api/event/banners`);
+  const payload = {
+    events: eventRes.data,
+    banners: bannerRes.data
+  }
+  dispatch({ type: TYPES.FETCH_EVENT, payload });
 };
 
 export const fetchAbout = () => async dispatch => {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import EventCard from './EventCard';
 
 import '../../css/events/event.css';
+import EventBanners from './EventBanners';
 
 const Events = (props) => {
   function renderCards() {
@@ -15,13 +16,16 @@ const Events = (props) => {
     }
   }
   return (
-    <div style={{background: "#fafafa"}} className="pt-5 pb-5">
-      <div className="container">
-        <h2 className="footer-text text-center" style={{marginTop: "80px"}}>近期活动一览</h2>
-        <div className="underline mb-5 mt-3" />
-        {renderCards()}
+    <React.Fragment>
+      <div style={{ background: "#fafafa" }} className="pt-3 pt-sm-0 pb-5">
+        <div className="d-none d-sm-block"><EventBanners /></div>
+        <div className="container">
+          <h2 className="footer-text text-center" style={{ marginTop: "80px" }}>近期活动一览</h2>
+          <div className="underline mb-5 mt-3" />
+          {renderCards()}
+        </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 }
 
