@@ -6,6 +6,7 @@ import '../../css/admin.css';
 import * as actions from '../../actions';
 
 import AdminEventList from './AdminEventList';
+import AdminEventBanners from './AdminEventBanners';
 import AdminAboutList from './AdminAboutList';
 import AdminHome from './AdminHome';
 import AdminAboutPhoto from './AdminAboutPhoto';
@@ -38,15 +39,18 @@ class Admin extends React.Component {
       <div className="container">
         <div className="sidebar">
           <button className="btn btn-outline-dark" onClick={() => {window.location.href = "#Home";}}>Home</button>
-          <button className="btn btn-outline-dark" style={{marginTop: "5px"}} onClick={() => {window.location.href = "#EventList";}}>Events</button>
+          <button className="btn btn-outline-dark" style={{marginTop: "5px"}} onClick={() => {window.location.href = "#Events";}}>Events</button>
           <button className="btn btn-outline-dark" style={{marginTop: "5px"}} onClick={() => {window.location.href = "#AboutList";}}>About</button>
         </div>
         <div id="Home" className="sections mb-5">
           <h1 className="mt-3 mb-3">Home</h1>
           <AdminHome />
         </div>
-        <div id="EventList" className="sections mb-5">
+        <div id="Events" className="sections mb-5">
           <h1 className="mt-3 mb-3">Events</h1>
+          <h3 id="EventBanners">EventBanners</h3>
+          <AdminEventBanners />
+          <h3 id="EventList" className="mt-3">EventList</h3>
           <AdminEventList />
         </div>
         <div id="AboutList" className="sections">

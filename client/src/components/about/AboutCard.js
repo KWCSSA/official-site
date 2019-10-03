@@ -3,7 +3,6 @@ import React from 'react';
 import '../../css/about/aboutCard.css';
 
 export default props => {
-  console.log(props);
   return (
     <div className="card shadow-sm border hover-default p-1">
       <div className="row m-1 mt-3 mb-3">

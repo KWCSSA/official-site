@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 const eventDataFilePath = path.join(__dirname, '../../data/events.json');
+const bannerDataFilePath = path.join(__dirname, '../data/eventBanners.json');
 
 module.exports = app => {
   app.put('/api/admin/event/detail/:eventId', async (req, res) => {

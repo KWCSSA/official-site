@@ -24,6 +24,7 @@ export const fetchEvent = () => async dispatch => {
 
 export const fetchAbout = () => async dispatch => {
   const res = await axios.get(`${serverAddress}/api/about`);
+  
   dispatch({ type: TYPES.FETCH_ABOUT, payload: res.data });
 }
 
