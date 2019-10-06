@@ -97,7 +97,7 @@ class AdminAboutPhoto extends React.Component {
   renderContent() {
     if (this.state.photo) {
       return (
-        <ul className="list-group mb-5">
+        <ul className="list-group mb-3">
           <li className="list-group-item">
             <h3>合照：</h3>
             <div className="row">
