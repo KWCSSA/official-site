@@ -32,7 +32,6 @@ module.exports = app => {
     var fileName = `${targetId}.jpg`;
     var dirName = path.join(__dirname, '../../static/eventPics');
     newImage.mv(path.join(dirName, fileName));
-    console.log(path.join(dirName, fileName));
     var eventList = JSON.parse(await fs.readFileSync(eventDataFilePath));
     var updatedList = eventList.map(event => {
       if (event.id === targetId) {
@@ -100,7 +99,7 @@ module.exports = app => {
     var newBanner = {
       id: newBannerId,
       link: req.body.link,
-      pic: ''
+      pic: {}
     }
     banners.unshift(newBanner);
     await fs.writeFileSync(bannerDataFilePath, JSON.stringify(banners));
@@ -127,15 +126,20 @@ module.exports = app => {
       var banners = JSON.parse(await fs.readFileSync(bannerDataFilePath));
       return res.send(banners);
     }
+    var version = null;
+    if (req.query.version === 'poster') {
+      version = 'p';
+    } else if (req.query.version === 'banner') {
+      version = 'b';
+    }
     var newImage = req.files.newImage;
-    var fileName = `${targetId}.jpg`;
+    var fileName = `${targetId}-${version}.jpg`;
     var dirName = path.join(__dirname, '../../static/eventPics/banners');
     newImage.mv(path.join(dirName, fileName));
-    console.log(path.join(dirName, fileName));
     var banners = JSON.parse(await fs.readFileSync(bannerDataFilePath));
     var updatedList = banners.map(banner => {
       if (banner.id === targetId) {
-        banner.pic = `http://localhost:8080/static/eventPics/banners/${fileName}?${Date.now()}`;
+        banner.pic[version] = `http://localhost:8080/static/eventPics/banners/${fileName}?${Date.now()}`;
       }
       return banner;
     });

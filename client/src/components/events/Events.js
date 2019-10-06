@@ -17,10 +17,11 @@ const Events = (props) => {
   }
   return (
     <React.Fragment>
-      <div style={{ background: "#fafafa" }} className="pt-3 pt-sm-0 pb-5">
-        <div className="d-none d-sm-block"><EventBanners /></div>
+      <div style={{ background: "#fafafa" }} className="pb-5">
+        <div className="d-none d-sm-block"><EventBanners version="b" /></div>
+        <div className="d-block d-sm-none"><EventBanners version="p" /></div>
         <div className="container">
-          <h2 className="footer-text text-center" style={{ marginTop: "80px" }}>近期活动一览</h2>
+          <h2 className="footer-text text-center" style={{ marginTop: "60px" }}>近期活动一览</h2>
           <div className="underline mb-5 mt-3" />
           {renderCards()}
         </div>

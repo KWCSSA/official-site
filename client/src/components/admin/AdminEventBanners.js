@@ -27,7 +27,7 @@ class AdminEventBanners extends React.Component {
       adding: true,
       addingState: {
         link: '',
-        pic: null
+        pic: {}
       }
     })
   }
@@ -92,8 +92,7 @@ class AdminEventBanners extends React.Component {
     }
   }
 
-  handleFileSelect = banner => {
-    const file = banner.target.files[0];
+  handleFileSelect = (file, version) => {
     this.setState(prevState => {
       var updatedBanner = null;
       if (this.state.editing) {
@@ -102,12 +101,18 @@ class AdminEventBanners extends React.Component {
         updatedBanner = prevState.addingState;
       }
       try {
-        updatedBanner.pic = URL.createObjectURL(file);
+        updatedBanner.pic[version] = URL.createObjectURL(file);
       } catch (err) {
         return;
       }
-      updatedBanner.fileChanged = true;
-      updatedBanner.file = file;
+      if (!updatedBanner.fileChanged) {
+        updatedBanner.fileChanged = {}
+      }
+      updatedBanner.fileChanged[version] = true;
+      if (!updatedBanner.file) {
+        updatedBanner.file = {}
+      }
+      updatedBanner.file[version] = file;
       if (this.state.editing) {
         return {
           editingState: updatedBanner
@@ -129,8 +134,16 @@ class AdminEventBanners extends React.Component {
             <div className="col-11">
               <div className="row">
                 <div className="col">
-                  <div onClick={() => this.toggleModal(banner.pic)} style={{ cursor: "pointer" }}><img src={banner.pic} style={{ width: '100%' }} alt="" /></div>
-                  <input className="mt-2 mb-2" type="file" accept="image/jpeg" onChange={this.handleFileSelect} />
+                  <h4>Banner:</h4>
+                  <div onClick={() => this.toggleModal(banner.pic.b)} style={{ cursor: "pointer" }}><img src={banner.pic ? banner.pic.b : ''} style={{ width: '100%' }} alt="" /></div>
+                  <input className="mt-2 mb-2" type="file" accept="image/jpeg" onChange={e => this.handleFileSelect(e.target.files[0], 'b')} />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col">
+                  <h4>Poster:</h4>
+                  <div onClick={() => this.toggleModal(banner.pic.p)} style={{ cursor: "pointer" }}><img src={banner.pic ? banner.pic.p : ''} style={{ width: '50%' }} alt="" /></div>
+                  <input className="mt-2 mb-2" type="file" accept="image/jpeg" onChange={e => this.handleFileSelect(e.target.files[0], 'p')} />
                 </div>
               </div>
               <div className="row">
@@ -159,8 +172,16 @@ class AdminEventBanners extends React.Component {
             <div className="col-11">
               <div className="row">
                 <div className="col">
-                  <div onClick={() => this.toggleModal(banner.pic)} style={{ cursor: "pointer" }}><img src={banner.pic} style={{ width: '100%' }} alt="" /></div>
-                  <input className="mt-2 mb-2" type="file" accept="image/jpeg" onChange={this.handleFileSelect} />
+                  <h4>Banner:</h4>
+                  <div onClick={() => this.toggleModal(banner.pic.b)} style={{ cursor: "pointer" }}><img src={banner.pic ? banner.pic.b : ''} style={{ width: '100%' }} alt="" /></div>
+                  <input className="mt-2 mb-2" type="file" accept="image/jpeg" onChange={e => this.handleFileSelect(e.target.files[0], 'b')} />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col">
+                  <h4>Poster:</h4>
+                  <div onClick={() => this.toggleModal(banner.pic.p)} style={{ cursor: "pointer" }}><img src={banner.pic ? banner.pic.p : ''} style={{ width: '50%' }} alt="" /></div>
+                  <input className="mt-2 mb-2" type="file" accept="image/jpeg" onChange={e => this.handleFileSelect(e.target.files[0], 'p')} />
                 </div>
               </div>
               <div className="row">
@@ -191,12 +212,15 @@ class AdminEventBanners extends React.Component {
           <li className="list-group-item d-flex justify-content-center"><button className="btn btn-success w-25" onClick={() => this.handleAddClick()}><i className="material-icons">add</i></button></li>
           {this.state.banners.map(banner => {
             return (
-              <li className="list-group-item">
+              <li className="list-group-item" key={banner.id}>
                 <div className="row">
-                  <div className="col-8" onClick={() => this.toggleModal(banner.pic)} style={{ cursor: "pointer" }}>
-                    <img src={banner.pic} style={{ width: '100%' }} alt="" />
+                  <div className="col-8" onClick={() => this.toggleModal(banner.pic.b)} style={{ cursor: "pointer" }}>
+                    <img src={banner.pic.b} style={{ width: '100%' }} alt="" />
                   </div>
-                  <div className="col-3 d-flex justify-content-center align-items-center">
+                  <div className="col-2" onClick={() => this.toggleModal(banner.pic.p)} style={{ cursor: "pointer" }}>
+                    <img src={banner.pic.p} style={{ width: '100%' }} alt="" />
+                  </div>
+                  <div className="col-1 d-flex justify-content-center align-items-center">
                     <a className="d-flex" href={banner.link} target="_blank" rel="noopener noreferrer"><h4 style={{ textDecoration: "underline" }}>链接</h4></a>
                   </div>
                   <div className="col-1">

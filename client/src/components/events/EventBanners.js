@@ -34,7 +34,7 @@ export default connect(mapStateToProps, null)(props => {
             <Slider className="banners" {...settings}>
               {props.event.banners.map(banner => {
                 return (
-                  <a href={banner.link} key={banner.id}><img src={banner.pic} alt="" style={{ width: "100%" }} /></a>
+                  <a href={banner.link} key={banner.id}><img src={banner.pic[props.version]} alt="" style={{ width: "100%" }} /></a>
                 );
               })}
             </Slider>

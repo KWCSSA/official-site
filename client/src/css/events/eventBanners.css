@@ -32,7 +32,7 @@
   height: 40px;
   bottom: 0;
   background: rgba(0, 0, 0, .3);
-  display: none !important;
+  display: block !important;
 }
 
 .slick-slide a {
@@ -42,11 +42,7 @@
 @media (min-width: 576px) {
 }
 
-@media (min-width: 768px) {  
-  .slick-dots {
-    display: block !important;
-  }
-
+@media (min-width: 768px) {
   .top-gap {
     margin-top: 80px;
   }
