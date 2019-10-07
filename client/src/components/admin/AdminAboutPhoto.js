@@ -57,7 +57,7 @@ class AdminAboutPhoto extends React.Component {
           <h3>合照：</h3>
           <div className="row">
             <div className="col-11">
-              <img className="mb-3" src={this.state.editing.src} alt="Group" style={{ maxWidth: "100%", cursor: "pointer" }} onClick={() => this.toggleModal(this.state.editing.src)} />
+              <img className="mb-3" src={this.state.editing.src} alt="Group" style={{ maxWidth: "100%", cursor: "zoom-in" }} onClick={() => this.toggleModal(this.state.editing.src)} />
               <input className="" type="file" accept="image/jpeg" onChange={this.handleFileSelect} />
             </div>
             <div className="col-1">
@@ -102,7 +102,7 @@ class AdminAboutPhoto extends React.Component {
             <h3>合照：</h3>
             <div className="row">
               <div className="col-11" onClick={() => this.toggleModal(this.state.photo)}>
-                <img style={{ maxWidth: "100%", cursor: "pointer" }} src={this.state.photo} alt="Group" />
+                <img style={{ maxWidth: "100%", cursor: "zoom-in" }} src={this.state.photo} alt="Group" />
               </div>
               <div className="col-1">
                 <button className="btn btn-outline-dark d-flex justify-content-center align-items-center" style={{ width: "100%", height: "50px" }} onClick={() => { this.handleEditClick() }}><i className="material-icons">edit</i></button>

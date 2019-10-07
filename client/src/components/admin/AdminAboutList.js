@@ -71,7 +71,7 @@ class AdminAboutList extends React.Component {
             <DragHandle />
           </div>
           <div className="col-2" onClick={() => this.toggleModal(person.pic)}>
-            <img style={{ maxWidth: "100%", cursor: "pointer" }} src={person.pic} alt={person.name} />
+            <img style={{ maxWidth: "100%", cursor: "zoom-in" }} src={person.pic} alt={person.name} />
           </div>
           <div className="col-8 d-flex flex-column">
             <div>

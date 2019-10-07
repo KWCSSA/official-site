@@ -69,7 +69,7 @@ class AdminEventList extends React.Component {
             <DragHandle />
           </div>
           <div className="col-4" onClick={() => this.toggleModal(event.pic)}>
-            <img style={{maxWidth: "100%", cursor: "pointer"}} src={event.pic} alt={event.title} />
+            <img style={{maxWidth: "100%", cursor: "zoom-in"}} src={event.pic} alt={event.title} />
           </div>
           <div className="col-6 d-flex flex-column">
             <div>

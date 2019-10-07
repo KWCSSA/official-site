@@ -12,15 +12,17 @@ module.exports = app => {
   app.post('/api/admin/login', (req, res) => {
     var password = req.body.password;
     if (password === cryptr.decrypt(process.env.ADMIN_PASSWORD)) {
-      return res.send(true);
+      return res.status(200).send(true);
     } else {
-      return res.send(false);
+      return res.statue(403).send(false);
     }
   });
 
   require('./adminEventRoutes')(app);
 
   require('./adminAboutRoutes')(app);
+
+  require('./adminFreshmanRoutes')(app);
 
   app.put('/api/admin/home', async (req, res) => {
     var newHomeData = req.body;

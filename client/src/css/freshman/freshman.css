@@ -30,12 +30,16 @@
 
 .congrats-message-text {
   font-size: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .booklet-cover {
   max-width: 90%;
   box-shadow: 0 5px 15px rgba(0,0,0,.65);
+}
+
+.booklet-cover:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,.95);
 }
 
 @media (min-width: 576px) {
@@ -55,7 +59,7 @@
 
   .congrats-message-text {
     font-size: 25px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
   }
 
   .booklet-cover {

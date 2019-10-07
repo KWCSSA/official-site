@@ -135,14 +135,14 @@ class AdminEventBanners extends React.Component {
               <div className="row">
                 <div className="col">
                   <h4>Banner:</h4>
-                  <div onClick={() => this.toggleModal(banner.pic.b)} style={{ cursor: "pointer" }}><img src={banner.pic ? banner.pic.b : ''} style={{ width: '100%' }} alt="" /></div>
+                  <div onClick={() => this.toggleModal(banner.pic.b)} style={{ cursor: "zoom-in" }}><img src={banner.pic ? banner.pic.b : ''} style={{ width: '100%' }} alt="" /></div>
                   <input className="mt-2 mb-2" type="file" accept="image/jpeg" onChange={e => this.handleFileSelect(e.target.files[0], 'b')} />
                 </div>
               </div>
               <div className="row">
                 <div className="col">
                   <h4>Poster:</h4>
-                  <div onClick={() => this.toggleModal(banner.pic.p)} style={{ cursor: "pointer" }}><img src={banner.pic ? banner.pic.p : ''} style={{ width: '50%' }} alt="" /></div>
+                  <div onClick={() => this.toggleModal(banner.pic.p)} style={{ cursor: "zoom-in" }}><img src={banner.pic ? banner.pic.p : ''} style={{ width: '50%' }} alt="" /></div>
                   <input className="mt-2 mb-2" type="file" accept="image/jpeg" onChange={e => this.handleFileSelect(e.target.files[0], 'p')} />
                 </div>
               </div>
@@ -173,14 +173,14 @@ class AdminEventBanners extends React.Component {
               <div className="row">
                 <div className="col">
                   <h4>Banner:</h4>
-                  <div onClick={() => this.toggleModal(banner.pic.b)} style={{ cursor: "pointer" }}><img src={banner.pic ? banner.pic.b : ''} style={{ width: '100%' }} alt="" /></div>
+                  <div onClick={() => this.toggleModal(banner.pic.b)} style={{ cursor: "zoom-in" }}><img src={banner.pic ? banner.pic.b : ''} style={{ width: '100%' }} alt="" /></div>
                   <input className="mt-2 mb-2" type="file" accept="image/jpeg" onChange={e => this.handleFileSelect(e.target.files[0], 'b')} />
                 </div>
               </div>
               <div className="row">
                 <div className="col">
                   <h4>Poster:</h4>
-                  <div onClick={() => this.toggleModal(banner.pic.p)} style={{ cursor: "pointer" }}><img src={banner.pic ? banner.pic.p : ''} style={{ width: '50%' }} alt="" /></div>
+                  <div onClick={() => this.toggleModal(banner.pic.p)} style={{ cursor: "zoom-in" }}><img src={banner.pic ? banner.pic.p : ''} style={{ width: '50%' }} alt="" /></div>
                   <input className="mt-2 mb-2" type="file" accept="image/jpeg" onChange={e => this.handleFileSelect(e.target.files[0], 'p')} />
                 </div>
               </div>
@@ -214,10 +214,10 @@ class AdminEventBanners extends React.Component {
             return (
               <li className="list-group-item" key={banner.id}>
                 <div className="row">
-                  <div className="col-8" onClick={() => this.toggleModal(banner.pic.b)} style={{ cursor: "pointer" }}>
+                  <div className="col-8" onClick={() => this.toggleModal(banner.pic.b)} style={{ cursor: "zoom-in" }}>
                     <img src={banner.pic.b} style={{ width: '100%' }} alt="" />
                   </div>
-                  <div className="col-2" onClick={() => this.toggleModal(banner.pic.p)} style={{ cursor: "pointer" }}>
+                  <div className="col-2" onClick={() => this.toggleModal(banner.pic.p)} style={{ cursor: "zoom-in" }}>
                     <img src={banner.pic.p} style={{ width: '100%' }} alt="" />
                   </div>
                   <div className="col-1 d-flex justify-content-center align-items-center">

@@ -10,6 +10,8 @@ import AdminEventBanners from './AdminEventBanners';
 import AdminAboutList from './AdminAboutList';
 import AdminHome from './AdminHome';
 import AdminAboutPhoto from './AdminAboutPhoto';
+import AdminFreshmanMessage from './AdminFreshmanMessage';
+import AdminFreshmanBooklets from './AdminFreshmanBooklets';
 
 class Admin extends React.Component {
   state = { password: '', authed: false };
@@ -41,6 +43,7 @@ class Admin extends React.Component {
           <button className="btn btn-outline-dark" onClick={() => {window.location.href = "#Home";}}>Home</button>
           <button className="btn btn-outline-dark" style={{marginTop: "5px"}} onClick={() => {window.location.href = "#Events";}}>Events</button>
           <button className="btn btn-outline-dark" style={{marginTop: "5px"}} onClick={() => {window.location.href = "#AboutList";}}>About</button>
+          <button className="btn btn-outline-dark" style={{marginTop: "5px"}} onClick={() => {window.location.href = "#Freshman";}}>新生相关</button>
         </div>
         <div id="Home" className="sections mb-5">
           <h1 className="mt-3 mb-3">Home</h1>
@@ -57,6 +60,14 @@ class Admin extends React.Component {
           <h1 className="mt-3 mb-3">About</h1>
           <AdminAboutPhoto />
           <AdminAboutList />
+        </div>
+        <div id="Freshman" className="sections mt-5">
+          <h1 className="mt-3 mb-3">新生相关</h1>
+          <h3 id="FreshmanMessage" className="mt-3">新生寄语</h3>
+          <AdminFreshmanMessage />
+          <h3 id="FreshmanBooklets" className="mt-3">新生手册&安全手册</h3>
+          <AdminFreshmanBooklets />
+          <h3 id="FreshmanList" className="mt-3">新生必读</h3>
         </div>
         <div style={{marginTop: "100px"}}></div>
       </div>

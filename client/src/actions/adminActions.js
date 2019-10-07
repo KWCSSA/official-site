@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { USER_LOGIN, FETCH_EVENT, FETCH_HOME, FETCH_ABOUT } from '../TYPES';
+import { USER_LOGIN, FETCH_EVENT, FETCH_HOME, FETCH_ABOUT, FETCH_FRESHMAN } from '../TYPES';
 
 const serverAddress = 'http://localhost:8080'; //FIXME use real api
 
@@ -46,7 +46,7 @@ export const updateEventDetail = event => async (dispatch, getState) => {
     events: res.data,
     banners: getState().event.banners
   }
- 
+
   dispatch({ type: FETCH_EVENT, payload });
 }
 
@@ -61,7 +61,7 @@ export const addNewEvent = event => async (dispatch, getState) => {
     events: res.data,
     banners: getState().event.banners
   }
-  
+
   dispatch({ type: FETCH_EVENT, payload });
 }
 
@@ -72,31 +72,49 @@ export const deleteEvent = id => async (dispatch, getState) => {
     events: res.data,
     banners: getState().event.banners
   }
-  
+
   dispatch({ type: FETCH_EVENT, payload });
 }
 
 export const addNewBanner = banner => async (dispatch, getState) => {
   var res = null;
-  var fileData = new FormData();
-  fileData.append('newImage', banner.file);
+  var fileData = null;
   res = await axios.post(`${serverAddress}/api/admin/event/banner/new`, banner);
-  res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${res.data}`, fileData);
+  var bannerId = res.data;
+  if (banner.fileChanged && banner.fileChanged.b) {
+    fileData = new FormData();
+    fileData.append('newImage', banner.file.b);
+    res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${bannerId}?version=banner`, fileData);
+  }
+  if (banner.fileChanged && banner.fileChanged.p) {
+    fileData = new FormData();
+    fileData.append('newImage', banner.file.p);
+    res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${bannerId}?version=poster`, fileData);
+  }
+  if (!banner.fileChanged) {
+    res = await axios.get(`${serverAddress}/api/event/banners`);
+  }
 
   const payload = {
     events: getState().event.events,
     banners: res.data
   }
-  
-  dispatch({ type: FETCH_EVENT, payload});
+
+  dispatch({ type: FETCH_EVENT, payload });
 }
 
 export const updateBannerDetail = banner => async (dispatch, getState) => {
   var res = null;
-  if (banner.fileChanged) {
-    var fileData = new FormData();
-    fileData.append('newImage', banner.file);
-    res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${banner.id}`, fileData);
+  var fileData = null;
+  if (banner.fileChanged && banner.fileChanged.b) {
+    fileData = new FormData();
+    fileData.append('newImage', banner.file.b);
+    res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${banner.id}?version=banner`, fileData);
+  }
+  if (banner.fileChanged && banner.fileChanged.p) {
+    fileData = new FormData();
+    fileData.append('newImage', banner.file.p);
+    res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${banner.id}?version=poster`, fileData);
   }
   res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/${banner.id}`, banner);
 
@@ -104,7 +122,7 @@ export const updateBannerDetail = banner => async (dispatch, getState) => {
     events: getState().event.events,
     banners: res.data
   }
- 
+
   dispatch({ type: FETCH_EVENT, payload });
 }
 
@@ -129,7 +147,7 @@ export const updateAboutList = about => (dispatch, getState) => {
     people: about,
     photo: getState().about.photo
   }
-  
+
   dispatch({ type: FETCH_ABOUT, payload });
 }
 
@@ -187,4 +205,33 @@ export const updateAboutPhoto = photo => async (dispatch, getState) => {
   }
 
   dispatch({ type: FETCH_ABOUT, payload: aboutState });
+}
+
+
+
+// Actions for freshman section
+export const updateFreshmanMessage = message => async (dispatch, getState) => {
+  const res = await axios.put(`${serverAddress}/api/admin/freshman/message`, message);
+
+  dispatch({ type: FETCH_FRESHMAN, payload: res.data });
+}
+
+export const updateFreshmanBooklets = booklets => async (dispatch, getState) => {
+  var res = null;
+  var fileData = new FormData();
+  if (booklets.NSPicChanged) {
+    fileData.append('NSPic', booklets.NSPic);
+  }
+  if (booklets.NSPdfChanged) {
+    fileData.append('NSPdf', booklets.NSPdf);
+  }
+  if (booklets.SFPicChanged) {
+    fileData.append('SFPic', booklets.SFPic);
+  }
+  if (booklets.SFPdfChanged) {
+    fileData.append('SFPdf', booklets.SFPdf);
+  }
+  res = await axios.put(`${serverAddress}/api/admin/freshman/booklets`, fileData);
+  
+  dispatch({ type: FETCH_FRESHMAN, payload: res.data });
 }

@@ -22,7 +22,7 @@ class Freshman extends React.Component {
             <div className="container">
               <div className="congrats-message">
                 <div className="congrats-message-text" style={{ fontFamily: "inherit" }}>致新生们：</div>
-                <div className="congrats-message-text" style={{ fontFamily: "inherit" }}>{freshman.message}</div>
+                <div className="congrats-message-text" style={{ fontFamily: "inherit" }}>{freshman.message.map((parag, i) => <p key={i} style={{ fontFamily: "inherit", marginBottom: "20px" }}>{parag}</p>)}</div>
                 <div className="congrats-message-text" style={{ fontFamily: "inherit", marginBottom: "5px" }}>滑铁卢-基奇纳中国学生学者联谊会</div>
                 <div className="congrats-message-text" style={{ fontFamily: "inherit", marginBottom: "0px" }}>{freshman.date}</div>
               </div>

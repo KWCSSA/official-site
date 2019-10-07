@@ -28,6 +28,9 @@ require('./routes/homeRoutes')(app);
 // Handle event routes
 require('./routes/eventRoutes')(app);
 
+// Handle freshman routes
+require('./routes/freshmanRoutes')(app);
+
 // Handle about routes
 require('./routes/aboutRoutes')(app);
 
