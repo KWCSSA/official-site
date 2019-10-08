@@ -8,7 +8,7 @@ module.exports = app => {
     const aboutPeople = JSON.parse(await fs.readFileSync(aboutDataFilePath));
     const data = {
       people: aboutPeople,
-      photo: `http://localhost:8080/static/about-group-photo.jpg?${Date.now()}`
+      photo: `/static/about-group-photo.jpg?${Date.now()}`
     }
     res.send(data);
   });

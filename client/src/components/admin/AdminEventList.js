@@ -26,7 +26,7 @@ class AdminEventList extends React.Component {
       }
     }
     if (this.state.updated) {
-      this.props.updateEventList(this.state.events);
+      this.props.updateEventList(this.state.events, this.props.adminPassword);
       this.setState({
         updated: false
       });
@@ -51,7 +51,7 @@ class AdminEventList extends React.Component {
   }
 
   handleDeleteClick(id) {
-    this.props.deleteEvent(id);
+    this.props.deleteEvent(id, this.props.adminPassword);
     this.setState(prevState => {
       return {
         events: prevState.events.filter(element => element.id !== id)
@@ -69,7 +69,7 @@ class AdminEventList extends React.Component {
             <DragHandle />
           </div>
           <div className="col-4" onClick={() => this.toggleModal(event.pic)}>
-            <img style={{maxWidth: "100%", cursor: "zoom-in"}} src={event.pic} alt={event.title} />
+            <img style={{maxWidth: "100%", maxHeight: "100%", cursor: "zoom-in"}} src={event.pic} alt={event.title} />
           </div>
           <div className="col-6 d-flex flex-column">
             <div>
@@ -111,13 +111,13 @@ class AdminEventList extends React.Component {
 
   handleConfirmClick() {
     if (this.state.adding) {
-      this.props.addNewEvent(this.state.addingState);
+      this.props.addNewEvent(this.state.addingState, this.props.adminPassword);
       this.setState({
         adding: null,
         addingState: null
       });
     } else if (this.state.editing) {
-      this.props.updateEventDetail(this.state.editingState);
+      this.props.updateEventDetail(this.state.editingState, this.props.adminPassword);
       this.setState({
         editing: null,
         editingState: null
@@ -207,7 +207,7 @@ class AdminEventList extends React.Component {
             <div className="col-10 d-flex flex-column">
               <div className="d-flex flex-column">
                 <h4>图片:</h4>
-                <div className="mt-3 mb-3" style={{height: "500px"}}><img style={{maxHeight: "100%"}} src={event.pic} alt={event.title} onClick={() => this.toggleModal(event.pic)} /></div>
+                <div className="mt-3 mb-3" style={{height: "500px"}}><img style={{maxWidth: "100%", maxHeight: "100%"}} src={event.pic} alt={event.title} onClick={() => this.toggleModal(event.pic)} /></div>
                 <input className="mb-3" type="file" accept="image/jpeg" onChange={this.handleFileSelect} />
               </div>
               <div>
@@ -247,7 +247,7 @@ class AdminEventList extends React.Component {
             <div className="col-10 d-flex flex-column">
               <div className="d-flex flex-column">
                 <h4>图片:</h4>
-                <div className="mt-3 mb-3" style={{height: "500px"}}><img style={{maxHeight: "100%"}} src={event.pic} alt={event.title} onClick={() => this.toggleModal(event.pic)} /></div>
+                <div className="mt-3 mb-3" style={{height: "500px"}}><img style={{maxHeight: "100%", maxWidth: "100%"}} src={event.pic} alt={event.title} onClick={() => this.toggleModal(event.pic)} /></div>
                 <input className="mb-3" type="file" accept="image/jpeg" onChange={this.handleFileSelect} />
               </div>
               <div>

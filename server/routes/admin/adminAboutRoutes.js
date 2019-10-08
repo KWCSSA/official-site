@@ -37,7 +37,6 @@ module.exports = app => {
     var fileName = `${targetId}.jpg`;
     var dirName = path.join(__dirname, '../../static/aboutPics');
     newImage.mv(path.join(dirName, fileName));
-    console.log(path.join(dirName, fileName));
     var aboutData = JSON.parse(await fs.readFileSync(aboutDataFilePath));
     var updatedList = aboutData.map(person => {
       if (person.id === targetId) {
@@ -89,7 +88,6 @@ module.exports = app => {
     }
     var newImage = req.files.newImage;
     newImage.mv(path.join(dirName, fileName));
-    console.log(path.join(dirName, fileName));
     res.send(`/static/${fileName}?${Date.now()}`);
   });
 }

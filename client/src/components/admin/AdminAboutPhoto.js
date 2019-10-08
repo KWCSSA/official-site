@@ -21,7 +21,7 @@ class AdminAboutPhoto extends React.Component {
   }
 
   handleConfirmClick() {
-    this.props.updateAboutPhoto(this.state.editing);
+    this.props.updateAboutPhoto(this.state.editing, this.props.adminPassword);
     this.setState({
       editing: null,
     });
@@ -56,7 +56,7 @@ class AdminAboutPhoto extends React.Component {
         <li className="list-group-item">
           <h3>合照：</h3>
           <div className="row">
-            <div className="col-11">
+            <div className="col-11 d-flex flex-column">
               <img className="mb-3" src={this.state.editing.src} alt="Group" style={{ maxWidth: "100%", cursor: "zoom-in" }} onClick={() => this.toggleModal(this.state.editing.src)} />
               <input className="" type="file" accept="image/jpeg" onChange={this.handleFileSelect} />
             </div>
@@ -71,7 +71,6 @@ class AdminAboutPhoto extends React.Component {
   }
 
   handleEditClick() {
-    // window.location.href = "#";
     window.location.href = "#AboutList";
     var editingState = {
       src: this.state.photo,
@@ -101,7 +100,7 @@ class AdminAboutPhoto extends React.Component {
           <li className="list-group-item">
             <h3>合照：</h3>
             <div className="row">
-              <div className="col-11" onClick={() => this.toggleModal(this.state.photo)}>
+              <div className="col-11 d-flex flex-column" onClick={() => this.toggleModal(this.state.photo)}>
                 <img style={{ maxWidth: "100%", cursor: "zoom-in" }} src={this.state.photo} alt="Group" />
               </div>
               <div className="col-1">

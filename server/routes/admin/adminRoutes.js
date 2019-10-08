@@ -9,6 +9,13 @@ const homeDataFilePath = path.join(__dirname, '../../data/home.json');
 module.exports = app => {
   app.use(fileUpload());
 
+  app.use('/api/admin', (req, res, next) => {
+    if (req.query.password === cryptr.decrypt(process.env.ADMIN_PASSWORD)) {
+      return next();
+    }
+    return res.status(403).end();
+  });
+
   app.post('/api/admin/login', (req, res) => {
     var password = req.body.password;
     if (password === cryptr.decrypt(process.env.ADMIN_PASSWORD)) {

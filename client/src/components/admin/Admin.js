@@ -52,44 +52,43 @@ class Admin extends React.Component {
     return (
       <div className="container">
         <div className="sidebar">
-          <button className="btn btn-outline-dark" onClick={() => {window.location.href = "#Home";}}>Home</button>
-          <button className="btn btn-outline-dark" style={{marginTop: "5px"}} onClick={() => {window.location.href = "#Events";}}>Events</button>
-          <button className="btn btn-outline-dark" style={{marginTop: "5px"}} onClick={() => {window.location.href = "#AboutList";}}>About</button>
-          <button className="btn btn-outline-dark" style={{marginTop: "5px"}} onClick={() => {window.location.href = "#Freshman";}}>新生相关</button>
+          <button className="btn btn-outline-dark" style={{ marginTop: "5px" }} onClick={() => { window.location.href = "#Home"; }}>Home</button>
+          <button className="btn btn-outline-dark" style={{ marginTop: "5px" }} onClick={() => { window.location.href = "#Events"; }}>Events</button>
+          <button className="btn btn-outline-dark" style={{ marginTop: "5px" }} onClick={() => { window.location.href = "#AboutList"; }}>About</button>
+          <button className="btn btn-outline-dark" style={{ marginTop: "5px" }} onClick={() => { window.location.href = "#Freshman"; }}>新生相关</button>
         </div>
         <div id="Home" className="sections mb-5">
           <h1 className="mt-3 mb-3">Home</h1>
-          <AdminHome />
+          <AdminHome adminPassword={this.state.password} />
         </div>
         <div id="Events" className="sections mb-5">
           <h1 className="mt-3 mb-3">Events</h1>
           <h3 id="EventBanners">EventBanners</h3>
-          <AdminEventBanners />
+          <AdminEventBanners adminPassword={this.state.password} />
           <h3 id="EventList" className="mt-3">EventList</h3>
-          <AdminEventList />
+          <AdminEventList adminPassword={this.state.password} />
         </div>
         <div id="AboutList" className="sections">
           <h1 className="mt-3 mb-3">About</h1>
-          <AdminAboutPhoto />
-          <AdminAboutList />
+          <AdminAboutPhoto adminPassword={this.state.password} />
+          <AdminAboutList adminPassword={this.state.password} />
         </div>
         <div id="Freshman" className="sections mt-5">
           <h1 className="mt-3 mb-3">新生相关</h1>
           <h3 id="FreshmanMessage" className="mt-3">新生寄语</h3>
-          <AdminFreshmanMessage />
+          <AdminFreshmanMessage adminPassword={this.state.password} />
           <h3 id="FreshmanBooklets" className="mt-3">新生手册&安全手册</h3>
-          <AdminFreshmanBooklets />
+          <AdminFreshmanBooklets adminPassword={this.state.password} />
           <h3 id="FreshmanList" className="mt-3">新生必读</h3>
-          <AdminFreshmanList />
+          <AdminFreshmanList adminPassword={this.state.password} />
         </div>
-        <div style={{marginTop: "100px"}}></div>
+        <div style={{ marginTop: "100px" }}></div>
       </div>
     );
   }
 
   render() {
     return this.props.admin.auth ? this.renderAdminComponents() : this.renderLogin();
-    // return this.renderAdminComponents()
   }
 }
 

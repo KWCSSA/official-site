@@ -11,17 +11,6 @@ app.use(bodyParser.json())
 
 app.use('/static', express.static('static'));
 
-// TODO: secure api endpoint
-// app.use('/api', (req, res, next) => {
-//   var requestIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress || req.socket.remoteAddress || req.connection.socket.remoteAddress;
-//   console.log(requestIP)
-//   if (requestIP !== '::1') {
-//     return;
-//   }
-//   return next();
-// });
-
-
 // Handle home routes
 require('./routes/homeRoutes')(app);
 

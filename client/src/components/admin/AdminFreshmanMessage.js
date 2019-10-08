@@ -26,7 +26,7 @@ class AdminFreshmanMessage extends React.Component {
   }
 
   handleConfirmClick() {
-    this.props.updateFreshmanMessage(this.state.editingState);
+    this.props.updateFreshmanMessage(this.state.editingState, this.props.adminPassword);
     this.setState({
       editing: null,
       editingState: null

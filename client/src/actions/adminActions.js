@@ -5,16 +5,14 @@ import { USER_LOGIN, FETCH_EVENT, FETCH_HOME, FETCH_ABOUT, FETCH_FRESHMAN } from
 const serverAddress = '';
 
 export const adminLogin = password => async dispatch => {
-  const res = await axios.post(`${serverAddress}/api/admin/login`, { password });
-
+  const res = await axios.post(`${serverAddress}/api/admin/login?password=${password}`, { password });
   dispatch({ type: USER_LOGIN, payload: res.data });
 }
 
 
-
 // Action for home section
-export const updateHome = home => async dispatch => {
-  const res = await axios.put(`${serverAddress}/api/admin/home`, home);
+export const updateHome = (home, password) => async dispatch => {
+  const res = await axios.put(`${serverAddress}/api/admin/home?password=${password}`, home);
 
   dispatch({ type: FETCH_HOME, payload: res.data });
 }
@@ -22,8 +20,8 @@ export const updateHome = home => async dispatch => {
 
 
 // Actions for events section
-export const updateEventList = events => async (dispatch, getState) => {
-  axios.put(`${serverAddress}/api/admin/event/list`, events);
+export const updateEventList = (events, password) => async (dispatch, getState) => {
+  axios.put(`${serverAddress}/api/admin/event/list?password=${password}`, events);
 
   const payload = {
     events,
@@ -33,14 +31,14 @@ export const updateEventList = events => async (dispatch, getState) => {
   dispatch({ type: FETCH_EVENT, payload });
 }
 
-export const updateEventDetail = event => async (dispatch, getState) => {
+export const updateEventDetail = (event, password) => async (dispatch, getState) => {
   var res = null;
   if (event.fileChanged) {
     var fileData = new FormData();
     fileData.append('newImage', event.file);
-    res = await axios.put(`${serverAddress}/api/admin/event/detail/image/${event.id}`, fileData);
+    res = await axios.put(`${serverAddress}/api/admin/event/detail/image/${event.id}?password=${password}`, fileData);
   }
-  res = await axios.put(`${serverAddress}/api/admin/event/detail/${event.id}`, event);
+  res = await axios.put(`${serverAddress}/api/admin/event/detail/${event.id}?password=${password}`, event);
 
   const payload = {
     events: res.data,
@@ -50,12 +48,12 @@ export const updateEventDetail = event => async (dispatch, getState) => {
   dispatch({ type: FETCH_EVENT, payload });
 }
 
-export const addNewEvent = event => async (dispatch, getState) => {
+export const addNewEvent = (event, password) => async (dispatch, getState) => {
   var res = null;
   var fileData = new FormData();
   fileData.append('newImage', event.file);
-  res = await axios.post(`${serverAddress}/api/admin/event/new`, event);
-  res = await axios.put(`${serverAddress}/api/admin/event/detail/image/${res.data}`, fileData);
+  res = await axios.post(`${serverAddress}/api/admin/event/new?password=${password}`, event);
+  res = await axios.put(`${serverAddress}/api/admin/event/detail/image/${res.data}?password=${password}`, fileData);
 
   const payload = {
     events: res.data,
@@ -65,8 +63,8 @@ export const addNewEvent = event => async (dispatch, getState) => {
   dispatch({ type: FETCH_EVENT, payload });
 }
 
-export const deleteEvent = id => async (dispatch, getState) => {
-  const res = await axios.delete(`${serverAddress}/api/admin/event/delete/${id}`);
+export const deleteEvent = (id, password) => async (dispatch, getState) => {
+  const res = await axios.delete(`${serverAddress}/api/admin/event/delete/${id}?password=${password}`);
 
   const payload = {
     events: res.data,
@@ -76,20 +74,21 @@ export const deleteEvent = id => async (dispatch, getState) => {
   dispatch({ type: FETCH_EVENT, payload });
 }
 
-export const addNewBanner = banner => async (dispatch, getState) => {
+export const addNewBanner = (banner, password) => async (dispatch, getState) => {
+  console.log(password);
   var res = null;
   var fileData = null;
-  res = await axios.post(`${serverAddress}/api/admin/event/banner/new`, banner);
+  res = await axios.post(`${serverAddress}/api/admin/event/banner/new?password=${password}`, banner);
   var bannerId = res.data;
   if (banner.fileChanged && banner.fileChanged.b) {
     fileData = new FormData();
     fileData.append('newImage', banner.file.b);
-    res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${bannerId}?version=banner`, fileData);
+    res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${bannerId}?version=banner&password=${password}`, fileData);
   }
   if (banner.fileChanged && banner.fileChanged.p) {
     fileData = new FormData();
     fileData.append('newImage', banner.file.p);
-    res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${bannerId}?version=poster`, fileData);
+    res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${bannerId}?version=poster&password=${password}`, fileData);
   }
   if (!banner.fileChanged) {
     res = await axios.get(`${serverAddress}/api/event/banners`);
@@ -103,20 +102,20 @@ export const addNewBanner = banner => async (dispatch, getState) => {
   dispatch({ type: FETCH_EVENT, payload });
 }
 
-export const updateBannerDetail = banner => async (dispatch, getState) => {
+export const updateBannerDetail = (banner, password) => async (dispatch, getState) => {
   var res = null;
   var fileData = null;
   if (banner.fileChanged && banner.fileChanged.b) {
     fileData = new FormData();
     fileData.append('newImage', banner.file.b);
-    res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${banner.id}?version=banner`, fileData);
+    res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${banner.id}?version=banner&password=${password}`, fileData);
   }
   if (banner.fileChanged && banner.fileChanged.p) {
     fileData = new FormData();
     fileData.append('newImage', banner.file.p);
-    res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${banner.id}?version=poster`, fileData);
+    res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${banner.id}?version=poster&password=${password}`, fileData);
   }
-  res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/${banner.id}`, banner);
+  res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/${banner.id}?password=${password}`, banner);
 
   const payload = {
     events: getState().event.events,
@@ -126,8 +125,8 @@ export const updateBannerDetail = banner => async (dispatch, getState) => {
   dispatch({ type: FETCH_EVENT, payload });
 }
 
-export const deleteBanner = id => async (dispatch, getState) => {
-  const res = await axios.delete(`${serverAddress}/api/admin/event/banner/delete/${id}`);
+export const deleteBanner = (id, password) => async (dispatch, getState) => {
+  const res = await axios.delete(`${serverAddress}/api/admin/event/banner/delete/${id}?password=${password}`);
 
   const payload = {
     events: getState().event.events,
@@ -140,8 +139,8 @@ export const deleteBanner = id => async (dispatch, getState) => {
 
 
 // Actions for about section
-export const updateAboutList = about => (dispatch, getState) => {
-  axios.put(`${serverAddress}/api/admin/about/list`, about);
+export const updateAboutList = (about, password) => (dispatch, getState) => {
+  axios.put(`${serverAddress}/api/admin/about/list?password=${password}`, about);
 
   const payload = {
     people: about,
@@ -151,15 +150,15 @@ export const updateAboutList = about => (dispatch, getState) => {
   dispatch({ type: FETCH_ABOUT, payload });
 }
 
-export const updateAboutDetail = person => async (dispatch, getState) => {
+export const updateAboutDetail = (person, password) => async (dispatch, getState) => {
   // dispatch({ type: FETCH_ABOUT, payload: res.data });
   var res = null;
   if (person.fileChanged) {
     var fileData = new FormData();
     fileData.append('newImage', person.file);
-    res = await axios.put(`${serverAddress}/api/admin/about/detail/image/${person.id}`, fileData);
+    res = await axios.put(`${serverAddress}/api/admin/about/detail/image/${person.id}?password=${password}`, fileData);
   }
-  res = await axios.put(`${serverAddress}/api/admin/about/detail/${person.id}`, person);
+  res = await axios.put(`${serverAddress}/api/admin/about/detail/${person.id}?password=${password}`, person);
 
   const payload = {
     people: res.data,
@@ -169,12 +168,12 @@ export const updateAboutDetail = person => async (dispatch, getState) => {
   dispatch({ type: FETCH_ABOUT, payload });
 }
 
-export const addNewAbout = person => async (dispatch, getState) => {
+export const addNewAbout = (person, password) => async (dispatch, getState) => {
   var res = null;
   var fileData = new FormData();
   fileData.append('newImage', person.file);
-  res = await axios.post(`${serverAddress}/api/admin/about/new`, person);
-  res = await axios.put(`${serverAddress}/api/admin/about/detail/image/${res.data}`, fileData);
+  res = await axios.post(`${serverAddress}/api/admin/about/new?password=${password}`, person);
+  res = await axios.put(`${serverAddress}/api/admin/about/detail/image/${res.data}?password=${password}`, fileData);
 
   const payload = {
     people: res.data,
@@ -184,8 +183,8 @@ export const addNewAbout = person => async (dispatch, getState) => {
   dispatch({ type: FETCH_ABOUT, payload });
 }
 
-export const deleteAbout = id => async (dispatch, getState) => {
-  const res = await axios.delete(`${serverAddress}/api/admin/about/delete/${id}`);
+export const deleteAbout = (id, password) => async (dispatch, getState) => {
+  const res = await axios.delete(`${serverAddress}/api/admin/about/delete/${id}?password=${password}`);
 
   const payload = {
     people: res.data,
@@ -195,10 +194,10 @@ export const deleteAbout = id => async (dispatch, getState) => {
   dispatch({ type: FETCH_ABOUT, payload });
 }
 
-export const updateAboutPhoto = photo => async (dispatch, getState) => {
+export const updateAboutPhoto = (photo, password) => async (dispatch, getState) => {
   var fileData = new FormData();
   fileData.append('newImage', photo.file);
-  const res = await axios.put(`${serverAddress}/api/admin/about/photo`, fileData);
+  const res = await axios.put(`${serverAddress}/api/admin/about/photo?password=${password}`, fileData);
   var aboutState = {
     people: getState().about.people,
     photo: res.data
@@ -210,13 +209,13 @@ export const updateAboutPhoto = photo => async (dispatch, getState) => {
 
 
 // Actions for freshman section
-export const updateFreshmanMessage = message => async (dispatch, getState) => {
-  const res = await axios.put(`${serverAddress}/api/admin/freshman/message`, message);
+export const updateFreshmanMessage = (message, password) => async (dispatch, getState) => {
+  const res = await axios.put(`${serverAddress}/api/admin/freshman/message?password=${password}`, message);
 
   dispatch({ type: FETCH_FRESHMAN, payload: res.data });
 }
 
-export const updateFreshmanBooklets = booklets => async (dispatch, getState) => {
+export const updateFreshmanBooklets = (booklets, password) => async (dispatch, getState) => {
   var res = null;
   var fileData = new FormData();
   if (booklets.NSPicChanged) {
@@ -231,33 +230,33 @@ export const updateFreshmanBooklets = booklets => async (dispatch, getState) => 
   if (booklets.SFPdfChanged) {
     fileData.append('SFPdf', booklets.SFPdf);
   }
-  res = await axios.put(`${serverAddress}/api/admin/freshman/booklets`, fileData);
+  res = await axios.put(`${serverAddress}/api/admin/freshman/booklets?password=${password}`, fileData);
   
   dispatch({ type: FETCH_FRESHMAN, payload: res.data });
 }
 
-export const addNewFreshmanPost = post => async dispatch => {
-  const res = await axios.post(`${serverAddress}/api/admin/freshman/post`, post);
+export const addNewFreshmanPost = (post, password) => async dispatch => {
+  const res = await axios.post(`${serverAddress}/api/admin/freshman/post?password=${password}`, post);
   
   dispatch({ type: FETCH_FRESHMAN, payload: res.data });
 }
 
-export const updateFreshmanList = posts => (dispatch, getState) => {
-  axios.put(`${serverAddress}/api/admin/freshman/postList`, posts);
+export const updateFreshmanList = (posts, password) => (dispatch, getState) => {
+  axios.put(`${serverAddress}/api/admin/freshman/postList?password=${password}`, posts);
   var payload = getState().freshman;
   payload.posts = posts;
 
   dispatch({ type: FETCH_FRESHMAN, payload});
 }
 
-export const updateFreshmanPostDetail = post => async dispatch => {
-  const res = await axios.put(`${serverAddress}/api/admin/freshman/post/${post.id}`, post);
+export const updateFreshmanPostDetail = (post, password) => async dispatch => {
+  const res = await axios.put(`${serverAddress}/api/admin/freshman/post/${post.id}?password=${password}`, post);
 
   dispatch({ type: FETCH_FRESHMAN, payload: res.data });
 }
 
-export const deleteFreshmanPost = id => async dispatch => {
-  const res = await axios.delete(`${serverAddress}/api/admin/freshman/post/${id}`);
+export const deleteFreshmanPost = (id, password) => async dispatch => {
+  const res = await axios.delete(`${serverAddress}/api/admin/freshman/post/${id}?password=${password}`);
 
   dispatch({ type: FETCH_FRESHMAN, payload: res.data});
 }

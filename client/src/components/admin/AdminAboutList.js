@@ -26,7 +26,7 @@ class AdminAboutList extends React.Component {
       }
     }
     if (this.state.updated) {
-      this.props.updateAboutList(this.state.about);
+      this.props.updateAboutList(this.state.about, this.props.adminPassword);
       this.setState({
         updated: false
       });
@@ -51,7 +51,7 @@ class AdminAboutList extends React.Component {
   }
 
   handleDeleteClick(id) {
-    this.props.deleteAbout(id);
+    this.props.deleteAbout(id, this.props.adminPassword);
     this.setState(prevState => {
       return {
         about: prevState.about.filter(element => element.id !== id)
@@ -108,13 +108,13 @@ class AdminAboutList extends React.Component {
 
   handleConfirmClick() {
     if (this.state.adding) {
-      this.props.addNewAbout(this.state.addingState);
+      this.props.addNewAbout(this.state.addingState, this.props.adminPassword);
       this.setState({
         adding: null,
         addingState: null
       });
     } else if (this.state.editing) {
-      this.props.updateAboutDetail(this.state.editingState);
+      this.props.updateAboutDetail(this.state.editingState, this.props.adminPassword);
       this.setState({
         editing: null,
         editingState: null
@@ -203,7 +203,7 @@ class AdminAboutList extends React.Component {
             <div className="col-10 d-flex flex-column">
               <div className="d-flex flex-column">
                 <h4>照片:</h4>
-                <div className="mt-3 mb-3" style={{ height: "500px" }}><img style={{ maxHeight: "100%" }} src={person.pic} alt={person.position} onClick={() => this.toggleModal(person.pic)} /></div>
+                <div className="mt-3 mb-3" style={{ height: "500px" }}><img style={{ maxHeight: "100%", maxWidth: "100%" }} src={person.pic} alt={person.position} onClick={() => this.toggleModal(person.pic)} /></div>
                 <input className="mb-3" type="file" accept="image/jpeg" onChange={this.handleFileSelect} />
               </div>
               <div>
@@ -239,7 +239,7 @@ class AdminAboutList extends React.Component {
             <div className="col-10 d-flex flex-column">
               <div className="d-flex flex-column">
                 <h4>照片:</h4>
-                <div className="mt-3 mb-3" style={{ height: "500px" }}><img style={{ maxHeight: "100%" }} src={person.pic} alt={person.position} onClick={() => this.toggleModal(person.pic)} /></div>
+                <div className="mt-3 mb-3" style={{ height: "500px" }}><img style={{ maxHeight: "100%", maxWidth: "100%" }} src={person.pic} alt={person.position} onClick={() => this.toggleModal(person.pic)} /></div>
                 <input className="mb-3" type="file" accept="image/jpeg" onChange={this.handleFileSelect} />
               </div>
               <div>

@@ -22,7 +22,7 @@ class AdminFreshmanList extends React.Component {
       }
     }
     if (this.state.updated) {
-      this.props.updateFreshmanList(this.state.posts);
+      this.props.updateFreshmanList(this.state.posts, this.props.adminPassword);
       this.setState({
         updated: false
       });
@@ -47,7 +47,7 @@ class AdminFreshmanList extends React.Component {
   }
 
   handleDeleteClick(id) {
-    this.props.deleteFreshmanPost(id);
+    this.props.deleteFreshmanPost(id, this.props.adminPassword);
     this.setState(prevState => {
       return {
         posts: prevState.posts.filter(element => element.id !== id)
@@ -96,13 +96,13 @@ class AdminFreshmanList extends React.Component {
 
   handleConfirmClick() {
     if (this.state.adding) {
-      this.props.addNewFreshmanPost(this.state.addingState);
+      this.props.addNewFreshmanPost(this.state.addingState, this.props.adminPassword);
       this.setState({
         adding: null,
         addingState: null
       });
     } else if (this.state.editing) {
-      this.props.updateFreshmanPostDetail(this.state.editingState);
+      this.props.updateFreshmanPostDetail(this.state.editingState, this.props.adminPassword);
       this.setState({
         editing: null,
         editingState: null
