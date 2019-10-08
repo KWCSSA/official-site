@@ -107,12 +107,18 @@ export const addNewBanner = (banner, password) => async (dispatch, getState) => 
 	var fileData = null;
 	res = await axios.post(`${serverAddress}/api/admin/event/banner/new?password=${password}`, banner);
 	var bannerId = res.data;
+	dispatch({ type: UPLOAD_START });
 	if (banner.fileChanged && banner.fileChanged.b) {
 		fileData = new FormData();
 		fileData.append('newImage', banner.file.b);
 		res = await axios.put(
 			`${serverAddress}/api/admin/event/banner/detail/image/${bannerId}?version=banner&password=${password}`,
-			fileData
+			fileData,
+			{
+				onUploadProgress: progressEvent => {
+					dispatch({ type: UPLOAD_PROGRESS, payload: progressEvent.loaded / progressEvent.total * 100 });
+				}
+			}
 		);
 	}
 	if (banner.fileChanged && banner.fileChanged.p) {
@@ -120,9 +126,16 @@ export const addNewBanner = (banner, password) => async (dispatch, getState) => 
 		fileData.append('newImage', banner.file.p);
 		res = await axios.put(
 			`${serverAddress}/api/admin/event/banner/detail/image/${bannerId}?version=poster&password=${password}`,
-			fileData
+			fileData,
+			{
+				onUploadProgress: progressEvent => {
+					dispatch({ type: UPLOAD_PROGRESS, payload: progressEvent.loaded / progressEvent.total * 100 });
+				}
+			}
 		);
 	}
+	await timeout(600);
+	dispatch({ type: UPLOAD_FINISH });
 	if (!banner.fileChanged) {
 		res = await axios.get(`${serverAddress}/api/event/banners`);
 	}
@@ -138,12 +151,18 @@ export const addNewBanner = (banner, password) => async (dispatch, getState) => 
 export const updateBannerDetail = (banner, password) => async (dispatch, getState) => {
 	var res = null;
 	var fileData = null;
+	dispatch({ type: UPLOAD_START });
 	if (banner.fileChanged && banner.fileChanged.b) {
 		fileData = new FormData();
 		fileData.append('newImage', banner.file.b);
 		res = await axios.put(
 			`${serverAddress}/api/admin/event/banner/detail/image/${banner.id}?version=banner&password=${password}`,
-			fileData
+			fileData,
+			{
+				onUploadProgress: progressEvent => {
+					dispatch({ type: UPLOAD_PROGRESS, payload: progressEvent.loaded / progressEvent.total * 100 });
+				}
+			}
 		);
 	}
 	if (banner.fileChanged && banner.fileChanged.p) {
@@ -151,9 +170,16 @@ export const updateBannerDetail = (banner, password) => async (dispatch, getStat
 		fileData.append('newImage', banner.file.p);
 		res = await axios.put(
 			`${serverAddress}/api/admin/event/banner/detail/image/${banner.id}?version=poster&password=${password}`,
-			fileData
+			fileData,
+			{
+				onUploadProgress: progressEvent => {
+					dispatch({ type: UPLOAD_PROGRESS, payload: progressEvent.loaded / progressEvent.total * 100 });
+				}
+			}
 		);
 	}
+	await timeout(600);
+	dispatch({ type: UPLOAD_FINISH });
 	res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/${banner.id}?password=${password}`, banner);
 
 	const payload = {
