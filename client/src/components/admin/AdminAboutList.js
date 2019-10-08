@@ -16,11 +16,10 @@ class AdminAboutList extends React.Component {
   }
 
   componentDidUpdate() {
-    // console.log('update', this.state);
     if (this.props.about) {
-      var oldEvents = JSON.stringify(this.state.about);
-      var newEvents = JSON.stringify(this.props.about.people);
-      if (oldEvents !== newEvents) {
+      var oldAbout = JSON.stringify(this.state.about);
+      var newAbout = JSON.stringify(this.props.about.people);
+      if (oldAbout !== newAbout) {
         this.setState({
           about: this.props.about.people
         });
@@ -44,7 +43,6 @@ class AdminAboutList extends React.Component {
   };
 
   handleEditClick(id) {
-    // window.location.href = "#";
     window.location.href = "#AboutPeople";
     this.setState({
       editing: id,
@@ -110,7 +108,6 @@ class AdminAboutList extends React.Component {
 
   handleConfirmClick() {
     if (this.state.adding) {
-      // this.props.updateEventDetail(this.state.editingState);
       this.props.addNewAbout(this.state.addingState);
       this.setState({
         adding: null,

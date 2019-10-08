@@ -23,8 +23,6 @@ class Root extends React.Component {
   state = { showBackToTop: false }
 
   componentDidMount() {
-    this.props.fetchEvent();
-    this.props.fetchAbout();
     window.addEventListener('scroll', this.onPageScroll.bind(this));
   }
 

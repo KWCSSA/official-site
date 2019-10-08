@@ -14,7 +14,7 @@ module.exports = app => {
     if (password === cryptr.decrypt(process.env.ADMIN_PASSWORD)) {
       return res.status(200).send(true);
     } else {
-      return res.statue(403).send(false);
+      return res.status(200).send(false);
     }
   });
 

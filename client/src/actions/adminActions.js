@@ -2,10 +2,10 @@ import axios from 'axios';
 
 import { USER_LOGIN, FETCH_EVENT, FETCH_HOME, FETCH_ABOUT, FETCH_FRESHMAN } from '../TYPES';
 
-const serverAddress = 'http://localhost:8080'; //FIXME use real api
+const serverAddress = '';
 
 export const adminLogin = password => async dispatch => {
-  const res = await axios.post(`${serverAddress}/api/login`, { password });
+  const res = await axios.post(`${serverAddress}/api/admin/login`, { password });
 
   dispatch({ type: USER_LOGIN, payload: res.data });
 }
@@ -234,4 +234,30 @@ export const updateFreshmanBooklets = booklets => async (dispatch, getState) => 
   res = await axios.put(`${serverAddress}/api/admin/freshman/booklets`, fileData);
   
   dispatch({ type: FETCH_FRESHMAN, payload: res.data });
+}
+
+export const addNewFreshmanPost = post => async dispatch => {
+  const res = await axios.post(`${serverAddress}/api/admin/freshman/post`, post);
+  
+  dispatch({ type: FETCH_FRESHMAN, payload: res.data });
+}
+
+export const updateFreshmanList = posts => (dispatch, getState) => {
+  axios.put(`${serverAddress}/api/admin/freshman/postList`, posts);
+  var payload = getState().freshman;
+  payload.posts = posts;
+
+  dispatch({ type: FETCH_FRESHMAN, payload});
+}
+
+export const updateFreshmanPostDetail = post => async dispatch => {
+  const res = await axios.put(`${serverAddress}/api/admin/freshman/post/${post.id}`, post);
+
+  dispatch({ type: FETCH_FRESHMAN, payload: res.data });
+}
+
+export const deleteFreshmanPost = id => async dispatch => {
+  const res = await axios.delete(`${serverAddress}/api/admin/freshman/post/${id}`);
+
+  dispatch({ type: FETCH_FRESHMAN, payload: res.data});
 }

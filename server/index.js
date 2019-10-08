@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors'); // FIXME: disallow cors in production
 require('dotenv').config();
 
-app.use(cors()) // FIXME: disallow cors
+// app.use(cors()) // FIXME: disallow cors
 app.use(bodyParser.json())
 
 app.use('/static', express.static('static'));

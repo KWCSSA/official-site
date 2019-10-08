@@ -14,7 +14,7 @@ module.exports = app => {
     const targetId = req.params.personId;
     const updatedPerson = req.body;
     var aboutData = JSON.parse(await fs.readFileSync(aboutDataFilePath));
-    var updatedList = aboutData.people.map(person => {
+    var updatedList = aboutData.map(person => {
       if (person.id === targetId) {
         person.name = updatedPerson.name;
         person.position = updatedPerson.position;
@@ -22,7 +22,7 @@ module.exports = app => {
       }
       return person;
     });
-    aboutData.people = updatedList;
+    aboutData = updatedList;
     await fs.writeFileSync(aboutDataFilePath, JSON.stringify(aboutData));
     res.send(aboutData);
   });
@@ -39,13 +39,13 @@ module.exports = app => {
     newImage.mv(path.join(dirName, fileName));
     console.log(path.join(dirName, fileName));
     var aboutData = JSON.parse(await fs.readFileSync(aboutDataFilePath));
-    var updatedList = aboutData.people.map(person => {
+    var updatedList = aboutData.map(person => {
       if (person.id === targetId) {
-        person.pic = `http://localhost:8080/static/aboutPics/${fileName}?${Date.now()}`;
+        person.pic = `/static/aboutPics/${fileName}?${Date.now()}`;
       }
       return person;
     });
-    aboutData.people = updatedList;
+    aboutData = updatedList;
     await fs.writeFileSync(aboutDataFilePath, JSON.stringify(aboutData));
     res.send(aboutData);
   });
@@ -60,7 +60,7 @@ module.exports = app => {
       description: req.body.description,
       pic: ''
     }
-    aboutData.people.unshift(newPerson);
+    aboutData.unshift(newPerson);
     await fs.writeFileSync(aboutDataFilePath, JSON.stringify(aboutData));
     res.send(newPersonId);
   });
@@ -76,7 +76,7 @@ module.exports = app => {
       fs.unlinkSync(filePath);
     } catch (err) {}
     
-    aboutData.people = aboutData.people.filter(person => person.id !== targetId);
+    aboutData = aboutData.filter(person => person.id !== targetId);
     await fs.writeFileSync(aboutDataFilePath, JSON.stringify(aboutData));
     res.send(aboutData);
   });
@@ -85,11 +85,11 @@ module.exports = app => {
     var fileName = 'about-group-photo.jpg';
     var dirName = path.join(__dirname, '../../static');
     if (!req.files) {
-      return res.send(`http://localhost:8080/static/${fileName}?${Date.now()}`);
+      return res.send(`/static/${fileName}?${Date.now()}`);
     }
     var newImage = req.files.newImage;
     newImage.mv(path.join(dirName, fileName));
     console.log(path.join(dirName, fileName));
-    res.send(`http://localhost:8080/static/${fileName}?${Date.now()}`);
+    res.send(`/static/${fileName}?${Date.now()}`);
   });
 }

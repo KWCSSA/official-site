@@ -44,7 +44,7 @@ class AdminFreshmanMessage extends React.Component {
     this.setState(prevState => {
       var updatedState = prevState.editingState;
       if (field === 'message') {
-        updatedState[field] = value.split('|');
+        updatedState[field] = value.split('|').map(e => e.trim());
       } else {
         updatedState[field] = value;
       }

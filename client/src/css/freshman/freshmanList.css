@@ -1,8 +1,13 @@
 a.post-list-item {
+  width: 100%;
   font-size: 16px;
   text-align: center;
-  padding-top: 14px;
-  padding-bottom: 14px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+a.list-group-item-action {
+  color: #212529;
 }
 
 @media (min-width: 576px) {
@@ -14,14 +19,12 @@ a.post-list-item {
 @media (min-width: 768px) {
   a.post-list-item {
     font-size: 18px;
-    text-align: center;
   }
 }
 
 @media (min-width: 992px) {
   a.post-list-item {
-    font-size: 20px;
-    text-align: center;
+    font-size: 23px;
   }
 
   ul.post-list-group {

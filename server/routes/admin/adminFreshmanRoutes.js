@@ -18,23 +18,64 @@ module.exports = app => {
     if (req.files.NSPic) {
       var fileName = 'new-student-booklet-cover.jpg';
       await req.files.NSPic.mv(path.join(dirName, fileName));
-      freshman.newStudentBooklet.pic = `http://localhost:8080/static/freshmanBooklets/new-student-booklet-cover.jpg?${Date.now()}`;
+      freshman.newStudentBooklet.pic = `/static/freshmanBooklets/new-student-booklet-cover.jpg?${Date.now()}`;
     }
     if (req.files.NSPdf) {
       var fileName = 'new-student-booklet.pdf';
       req.files.NSPdf.mv(path.join(dirName, fileName));
-      freshman.newStudentBooklet.link = `http://localhost:8080/static/freshmanBooklets/new-student-booklet.pdf?${Date.now()}`;
+      freshman.newStudentBooklet.link = `/static/freshmanBooklets/new-student-booklet.pdf?${Date.now()}`;
     }
     if (req.files.SFPic) {
       var fileName = 'safety-booklet-cover.jpg';
       req.files.SFPic.mv(path.join(dirName, fileName));
-      freshman.safetyBooklet.pic = `http://localhost:8080/static/freshmanBooklets/safety-booklet-cover.jpg?${Date.now()}`;
+      freshman.safetyBooklet.pic = `/static/freshmanBooklets/safety-booklet-cover.jpg?${Date.now()}`;
     }
     if (req.files.SFPdf) {
       var fileName = 'safety-booklet.pdf';
       req.files.SFPdf.mv(path.join(dirName, fileName));
-      freshman.safetyBooklet.link = `http://localhost:8080/static/freshmanBooklets/safety-booklet.pdf?${Date.now()}`;
+      freshman.safetyBooklet.link = `/static/freshmanBooklets/safety-booklet.pdf?${Date.now()}`;
     }
+    await fs.writeFileSync(freshmanDataFilePath, JSON.stringify(freshman));
+    res.send(freshman);
+  });
+
+  app.post('/api/admin/freshman/post', async (req, res) => {
+    var freshman = JSON.parse(await fs.readFileSync(freshmanDataFilePath));
+    var newPost = {
+      id: `${Date.now()}`,
+      title: req.body.title,
+      link: req.body.link
+    }
+    freshman.posts.unshift(newPost);
+    await fs.writeFileSync(freshmanDataFilePath, JSON.stringify(freshman));
+    res.send(freshman);
+  });
+
+  app.put('/api/admin/freshman/postList', async (req, res) => {
+    var freshman = JSON.parse(await fs.readFileSync(freshmanDataFilePath));
+    freshman.posts = req.body;
+    await fs.writeFileSync(freshmanDataFilePath, JSON.stringify(freshman));
+    res.send(freshman);
+  });
+
+  app.put('/api/admin/freshman/post/:postId', async (req, res) => {
+    var targetId = req.params.postId;
+    var freshman = JSON.parse(await fs.readFileSync(freshmanDataFilePath));
+    freshman.posts = freshman.posts.map(post => {
+      if (post.id === targetId) {
+        post.title = req.body.title;
+        post.link = req.body.link;
+      }
+      return post;
+    });
+    await fs.writeFileSync(freshmanDataFilePath, JSON.stringify(freshman));
+    res.send(freshman);
+  });
+
+  app.delete('/api/admin/freshman/post/:postId', async (req, res) => {
+    var targetId = req.params.postId;
+    var freshman = JSON.parse(await fs.readFileSync(freshmanDataFilePath));
+    freshman.posts = freshman.posts.filter(element => element.id !== targetId);
     await fs.writeFileSync(freshmanDataFilePath, JSON.stringify(freshman));
     res.send(freshman);
   });

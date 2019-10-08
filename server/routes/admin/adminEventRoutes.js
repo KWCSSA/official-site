@@ -35,7 +35,7 @@ module.exports = app => {
     var eventList = JSON.parse(await fs.readFileSync(eventDataFilePath));
     var updatedList = eventList.map(event => {
       if (event.id === targetId) {
-        event.pic = `http://localhost:8080/static/eventPics/${fileName}?${Date.now()}`;
+        event.pic = `/static/eventPics/${fileName}?${Date.now()}`;
       }
       return event;
     });
@@ -139,7 +139,7 @@ module.exports = app => {
     var banners = JSON.parse(await fs.readFileSync(bannerDataFilePath));
     var updatedList = banners.map(banner => {
       if (banner.id === targetId) {
-        banner.pic[version] = `http://localhost:8080/static/eventPics/banners/${fileName}?${Date.now()}`;
+        banner.pic[version] = `/static/eventPics/banners/${fileName}?${Date.now()}`;
       }
       return banner;
     });

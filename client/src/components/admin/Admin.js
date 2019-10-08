@@ -12,16 +12,27 @@ import AdminHome from './AdminHome';
 import AdminAboutPhoto from './AdminAboutPhoto';
 import AdminFreshmanMessage from './AdminFreshmanMessage';
 import AdminFreshmanBooklets from './AdminFreshmanBooklets';
+import AdminFreshmanList from './AdminFreshmanList';
 
 class Admin extends React.Component {
-  state = { password: '', authed: false };
+  state = { password: '', init: true, message: '' };
 
   componentDidUpdate() {
+    if (!this.state.init && !this.props.admin.auth) {
+      if (this.state.message !== '密码错误') {
+        this.setState({
+          message: '密码错误'
+        })
+      }
+    }
   }
 
   handleLogin(event) {
     event.preventDefault();
     this.props.adminLogin(this.state.password);
+    this.setState({
+      init: false
+    });
   }
 
   renderLogin() {
@@ -30,6 +41,7 @@ class Admin extends React.Component {
         <form onSubmit={this.handleLogin.bind(this)}>
           <div className="form-group">
             <input type="password" name="password" className="form-control" aria-describedby="password" onChange={(e) => { this.setState({ password: e.target.value }) }} value={this.state.password} />
+            <label className="text-danger">{this.state.message}</label>
           </div>
         </form>
       </div>
@@ -68,6 +80,7 @@ class Admin extends React.Component {
           <h3 id="FreshmanBooklets" className="mt-3">新生手册&安全手册</h3>
           <AdminFreshmanBooklets />
           <h3 id="FreshmanList" className="mt-3">新生必读</h3>
+          <AdminFreshmanList />
         </div>
         <div style={{marginTop: "100px"}}></div>
       </div>
@@ -75,8 +88,8 @@ class Admin extends React.Component {
   }
 
   render() {
-    // return this.props.admin.auth ? this.renderAdminComponents() : this.renderLogin();
-    return this.renderAdminComponents()
+    return this.props.admin.auth ? this.renderAdminComponents() : this.renderLogin();
+    // return this.renderAdminComponents()
   }
 }
 

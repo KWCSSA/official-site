@@ -1,31 +1,40 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import * as actions from '../../actions';
+
 import '../../css/about/about.css';
 
 import AboutCard from './AboutCard';
 
-const About = props => {
-  function renderCards() {
-    if (props.about) {
-      return props.about.people.map(person => {
+class About extends React.Component {
+  componentDidMount() {
+    this.props.fetchAbout();
+  }
+
+  renderCards() {
+    if (this.props.about) {
+      return this.props.about.people.map(person => {
         return <AboutCard key={person.name} {...person} />;
       });
     }
   }
 
-  return (
-    <div style={{background: "#fafafa"}} className="pb-5">
-      <div className="group-photo-wrapper">
-        {props.about ? <img className='group-photo' src={props.about.photo} alt='group together' /> : ''}
-      </div>
-      <div className="container">
-        <div className="about-card-wrapper pt-3">
-          {renderCards()}
+  render() {
+    return (
+      <div style={{background: "#fafafa"}} className="pb-5">
+        <div className="group-photo-wrapper">
+          {this.props.about ? <img className='group-photo' src={this.props.about.photo} alt='group together' /> : ''}
+        </div>
+        <div className="container">
+          <div className="about-card-wrapper pt-3">
+            {this.renderCards()}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+  
 }
 
 
@@ -35,4 +44,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(About);
+export default connect(mapStateToProps, actions)(About);

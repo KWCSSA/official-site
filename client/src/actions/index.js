@@ -5,7 +5,7 @@ import * as TYPES from '../TYPES'
 
 export * from './adminActions';
 
-const serverAddress = 'http://localhost:8080'; //FIXME use real api
+const serverAddress = '';
 
 export const fetchHome = () => async dispatch => {
   const res = await axios.get(`${serverAddress}/api/home`);
@@ -37,12 +37,7 @@ export const fetchFreshman = () => async dispatch => {
 export const sendMessageLoading = () => ({ type: TYPES.SEND_MESSAGE_LOADING });
 
 export const sendMessage = message => async dispatch => {
-  // const res = await axios.post(`${serverAddress}/api/contact/message`, message); //FIXME: change to real api call
-  const res = {
-    data: {
-      success: true
-    }
-  };
+  const res = await axios.post(`${serverAddress}/api/contact/message`, message);
   dispatch({ type: TYPES.SEND_MESSAGE, payload: res.data });
 }
 
