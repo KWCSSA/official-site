@@ -4,10 +4,10 @@ const path = require('path');
 const bodyParser = require('body-parser');
 // const ipfilter = require('express-ipfilter');
 const cors = require('cors'); // FIXME: disallow cors in production
+app.use(cors());
 require('dotenv').config();
 
-// app.use(cors()) // FIXME: disallow cors
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.use('/static', express.static('static'));
 
@@ -31,11 +31,11 @@ require('./routes/admin/adminRoutes')(app);
 
 app.use(express.static('client/build'));
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
+	res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'));
 });
 
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
-  console.log('Listening on ' + PORT);
+	console.log('Listening on ' + PORT);
 });

@@ -8,18 +8,18 @@ import Root from './Root';
 import Admin from './admin/Admin';
 
 class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/admin" component={Admin} />
-            <Route path="/" component={Root} />
-          </Switch>
-        </BrowserRouter>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div>
+				<BrowserRouter>
+					<Switch>
+						<Route exact path='/admin' component={Admin} />
+						<Route path='/' component={Root} />
+					</Switch>
+				</BrowserRouter>
+			</div>
+		);
+	}
 }
 
 export default connect(null, actions)(App);

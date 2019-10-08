@@ -20,57 +20,64 @@ import NotFound404 from './NotFound404';
 var scroll = Scroll.animateScroll;
 
 class Root extends React.Component {
-  state = { showBackToTop: false }
+	state = { showBackToTop: false };
 
-  componentDidMount() {
-    window.addEventListener('scroll', this.onPageScroll.bind(this));
-  }
+	componentDidMount() {
+		window.addEventListener('scroll', this.onPageScroll.bind(this));
+	}
 
-  onPageScroll() {
-    const scrollPos = document.body.scrollTop || document.documentElement.scrollTop;
-    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolledPercent = scrollPos / windowHeight;
+	onPageScroll() {
+		const scrollPos = document.body.scrollTop || document.documentElement.scrollTop;
+		const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+		const scrolledPercent = scrollPos / windowHeight;
 
-    if (scrolledPercent > 0.45) {
-      if (this.state.showBackToTop !== true) {
-        this.setState({
-          showBackToTop: true
-        });
-      }
-    } else {
-      if (this.state.showBackToTop !== false) {
-        this.setState({
-          showBackToTop: false
-        });
-      }
-    }
-  }
+		if (scrolledPercent > 0.45) {
+			if (this.state.showBackToTop !== true) {
+				this.setState({
+					showBackToTop: true
+				});
+			}
+		} else {
+			if (this.state.showBackToTop !== false) {
+				this.setState({
+					showBackToTop: false
+				});
+			}
+		}
+	}
 
-  renderBackToTopBtn() {
-    return (
-      <div className="d-flex justify-content-center align-items-center back-to-top" onClick={() => {scroll.scrollToTop()}}>
-        <i className="material-icons" style={{ color: '#fff' }}>keyboard_arrow_up</i>
-      </div>
-    );
-  }
+	renderBackToTopBtn() {
+		return (
+			<div
+				className='d-flex justify-content-center align-items-center back-to-top'
+				onClick={() => {
+					scroll.scrollToTop();
+				}}
+			>
+				<i className='material-icons' style={{ color: '#fff' }}>
+					keyboard_arrow_up
+				</i>
+			</div>
+		);
+	}
 
-  render() {
-    return (
-      <React.Fragment>
-        <NavBar scroll={scroll} />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/about" component={About} />
-          <Route exact path="/freshman" component={Freshman} />
-          <Route exact path="/events" component={Events} />
-          <Route exact path="/contact" component={Contact} />
-          <Route component={NotFound404} />
-        </Switch>
-        <Footer />
-        {this.state.showBackToTop ? this.renderBackToTopBtn() : ''}
-      </React.Fragment>
-    );
-  }
+	render() {
+		return (
+			<React.Fragment>
+				<NavBar scroll={scroll} />
+				<Switch>
+					<Route exact path='/' component={Home} />
+					<Route exact path='/about' component={About} />
+					<Route exact path='/freshman' component={Freshman} />
+					<Route exact path='/events' component={Events} />
+					<Route exact path='/contact' component={Contact} />
+					<Route component={NotFound404} />
+				</Switch>
+				<Footer />
+				{this.state.showBackToTop ? this.renderBackToTopBtn() : ''}
+			</React.Fragment>
+		);
+	}
 }
 
 export default connect(null, actions)(Root);

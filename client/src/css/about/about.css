@@ -1,10 +1,10 @@
 .group-photo {
-  width: 100%;
-  filter: brightness(90%);
+	width: 100%;
+	filter: brightness(90%);
 }
 
 .section-title {
-  margin-top: 40px;
+	margin-top: 40px;
 }
 
 @media (min-width: 576px) {

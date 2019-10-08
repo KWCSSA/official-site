@@ -1,60 +1,60 @@
 div.card {
-  margin-top: 30px;
-  margin-left: 0px;
-  margin-right: 0px;
+	margin-top: 30px;
+	margin-left: 0px;
+	margin-right: 0px;
 }
 
 .event-pic-wrapper {
-  max-height: 500px;
-  overflow: hidden;
+	max-height: 500px;
+	overflow: hidden;
 }
 
 .event-pic {
-  width: 100%;
+	width: 100%;
 }
 
 .event-title {
-  font-size: 28px;
-  font-weight: 600
+	font-size: 28px;
+	font-weight: 600;
 }
 
 .event-content {
-  font-size: 13px;
+	font-size: 13px;
 }
 
 @media (min-width: 576px) {
 }
 
 @media (min-width: 768px) {
-  .card {
-    /* margin-left: 70px;
+	.card {
+		/* margin-left: 70px;
     margin-right: 70px; */
-  }
+	}
 
-  .event-content {
-    font-size: 14px;
-  }
+	.event-content {
+		font-size: 14px;
+	}
 }
 
 @media (min-width: 992px) {
-  .card {
-    /* margin-left: 110px;
+	.card {
+		/* margin-left: 110px;
     margin-right: 110px; */
-  }
+	}
 }
 
 @media (min-width: 1200px) {
-  div.card {
-    margin-left: 50px;
-    margin-right: 50px;
-  }
+	div.card {
+		margin-left: 50px;
+		margin-right: 50px;
+	}
 
-  .event-content {
-    font-size: 15px;
-  }
+	.event-content {
+		font-size: 15px;
+	}
 }
 
 .stick-bot {
-  position: absolute;
-  bottom: 0;
+	position: absolute;
+	bottom: 0;
 }

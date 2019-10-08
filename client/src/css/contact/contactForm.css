@@ -1,24 +1,23 @@
 .msg-content {
-  height: 100px !important;
-  resize: none;
+	height: 100px !important;
+	resize: none;
 }
 
 .btn {
-  float: right;
-  width: 100px;
+	float: right;
+	width: 100px;
 }
 .send-email:hover {
-  cursor: pointer;
-  opacity: 0.8;
+	cursor: pointer;
+	opacity: 0.8;
 }
 
 .small-text {
-  font-size: 11px;
+	font-size: 11px;
 }
 
 @media (min-width: 768px) {
-  .small-text {
-    font-size: 80%;
-  }
+	.small-text {
+		font-size: 80%;
+	}
 }
-

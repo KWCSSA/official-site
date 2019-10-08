@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+SC&display=swap');
 
 * {
-  font-family: 'Noto Sans SC', sans-serif;
+	font-family: 'Noto Sans SC', sans-serif;
 }
 
 .ch-text {
-  letter-spacing: 1.5px;
+	letter-spacing: 1.5px;
 }

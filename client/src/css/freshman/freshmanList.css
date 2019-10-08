@@ -1,38 +1,37 @@
 a.post-list-item {
-  width: 100%;
-  font-size: 16px;
-  text-align: center;
-  padding-top: 15px;
-  padding-bottom: 15px;
+	width: 100%;
+	font-size: 16px;
+	text-align: center;
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
 
 a.list-group-item-action {
-  color: #212529;
+	color: #212529;
 }
 
 @media (min-width: 576px) {
-  a.post-list-item {
-    font-size: 17px;
-  }
+	a.post-list-item {
+		font-size: 17px;
+	}
 }
 
 @media (min-width: 768px) {
-  a.post-list-item {
-    font-size: 18px;
-  }
+	a.post-list-item {
+		font-size: 18px;
+	}
 }
 
 @media (min-width: 992px) {
-  a.post-list-item {
-    font-size: 23px;
-  }
+	a.post-list-item {
+		font-size: 23px;
+	}
 
-  ul.post-list-group {
-    margin-left: 50px;
-    margin-right: 50px;
-  }
+	ul.post-list-group {
+		margin-left: 50px;
+		margin-right: 50px;
+	}
 }
 
 @media (min-width: 1200px) {
-  
 }

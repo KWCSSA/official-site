@@ -1,19 +1,19 @@
 .admin-login {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .drag-handle {
-  cursor: grab;
+	cursor: grab;
 }
 
 .sidebar {
-  position: fixed;
-  left: 0;
-  margin-left: 10px;
-  display: flex;
-  flex-direction: column;
+	position: fixed;
+	left: 0;
+	margin-left: 10px;
+	display: flex;
+	flex-direction: column;
 }

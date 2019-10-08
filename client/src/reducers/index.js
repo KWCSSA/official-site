@@ -7,13 +7,15 @@ import contactReducer from './contactReducer';
 import adminReducer from './adminReducer';
 import homeReducer from './homeReducer';
 import freshmanReducer from './freshmanReducer';
+import uploadReducer from './uploadReducer';
 
 export default combineReducers({
-  home: homeReducer,
-  event: eventReducer,
-  about: aboutReducer,
-  contact: contactReducer,
-  admin: adminReducer,
-  freshman: freshmanReducer,
-  form: reduxFormReducer
+	home: homeReducer,
+	event: eventReducer,
+	about: aboutReducer,
+	contact: contactReducer,
+	admin: adminReducer,
+	freshman: freshmanReducer,
+	upload: uploadReducer,
+	form: reduxFormReducer
 });

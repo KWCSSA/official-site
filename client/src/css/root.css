@@ -1,11 +1,11 @@
 div.back-to-top {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  margin: 15px;
-  height: 45px;
-  width: 45px;
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.3);
-  color: #ffffff;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	margin: 15px;
+	height: 45px;
+	width: 45px;
+	cursor: pointer;
+	background-color: rgba(0, 0, 0, 0.3);
+	color: #ffffff;
 }

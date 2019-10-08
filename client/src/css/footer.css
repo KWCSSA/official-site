@@ -1,87 +1,87 @@
 .section-wrapper {
-  background: #fafafa;
+	background: #fafafa;
 }
 
 .copyright {
-  font-size: 7px;
-  margin-bottom: 7px;
+	font-size: 7px;
+	margin-bottom: 7px;
 }
 
 .footer-logos {
-  max-width: 100%;
+	max-width: 100%;
 }
 
 .footer-text {
-  font-size: 35px;
-  font-weight: 600;
-  text-shadow: 3.3px 3.3px 3px rgba(0, 0, 0, .2);
+	font-size: 35px;
+	font-weight: 600;
+	text-shadow: 3.3px 3.3px 3px rgba(0, 0, 0, .2);
 }
 
 .underline {
-  background: #212529;
-  width: 80px;
-  height: 3px;
-  margin: auto;
-  margin-top: 5px;
-  margin-bottom: 30px;
-  box-shadow: 3.3px 3.3px 3px rgba(0, 0, 0, .2);
+	background: #212529;
+	width: 80px;
+	height: 3px;
+	margin: auto;
+	margin-top: 5px;
+	margin-bottom: 30px;
+	box-shadow: 3.3px 3.3px 3px rgba(0, 0, 0, .2);
 }
 
 .footer-qrcode {
-  max-width: 120px;
-  margin-bottom: 50px;
+	max-width: 120px;
+	margin-bottom: 50px;
 }
 
 .follow-link:hover {
-  transform: scale(1.08);
-  -webkit-transform: scale(1.08);
-  -moz-transform: scale(1.08);
-  -ms-transform: scale(1.08);
-  -o-transform: scale(1.08);
+	transform: scale(1.08);
+	-webkit-transform: scale(1.08);
+	-moz-transform: scale(1.08);
+	-ms-transform: scale(1.08);
+	-o-transform: scale(1.08);
 }
 
 @media (min-width: 576px) {
-  .footer-logos {
-    max-width: 70%;
-  }
+	.footer-logos {
+		max-width: 70%;
+	}
 
-  .copyright {
-    font-size: 10px;
-    margin-bottom: 10px;
-  }
+	.copyright {
+		font-size: 10px;
+		margin-bottom: 10px;
+	}
 
-  .footer-qrcode {
-    max-width: 130px;
-  }
+	.footer-qrcode {
+		max-width: 130px;
+	}
 }
 
 @media (min-width: 768px) {
-  .footer-logos {
-    max-width: 60%;
-  }
+	.footer-logos {
+		max-width: 60%;
+	}
 
-  .footer-text {
-    font-size: 45px;
-  }
+	.footer-text {
+		font-size: 45px;
+	}
 
-  .footer-qrcode {
-    max-width: 150px;
-  }
+	.footer-qrcode {
+		max-width: 150px;
+	}
 }
 
 @media (min-width: 992px) {
-  .footer-logos {
-    max-width: 50%;
-  }
+	.footer-logos {
+		max-width: 50%;
+	}
 }
 
 @media (min-width: 1200px) {
-  .copyright {
-    font-size: 13px;
-    margin-bottom: 13px;
-  }
+	.copyright {
+		font-size: 13px;
+		margin-bottom: 13px;
+	}
 
-  .footer-logos {
-    max-width: 40%;
-  }
+	.footer-logos {
+		max-width: 40%;
+	}
 }
