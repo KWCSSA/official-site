@@ -75,7 +75,6 @@ export const deleteEvent = (id, password) => async (dispatch, getState) => {
 }
 
 export const addNewBanner = (banner, password) => async (dispatch, getState) => {
-  console.log(password);
   var res = null;
   var fileData = null;
   res = await axios.post(`${serverAddress}/api/admin/event/banner/new?password=${password}`, banner);
