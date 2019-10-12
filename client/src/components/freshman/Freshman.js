@@ -45,7 +45,7 @@ class Freshman extends React.Component {
 					<div className='section-wrapper mb-3'>
 						<div className='container pb-5'>
 							<div className='row pt-5 text-center'>
-								<div className='col footer-text'>必读手册</div> {/* FIXME: come up with a better section name */}
+								<div className='col footer-text'>必读手册</div>
 							</div>
 							<div className='row'>
 								<div className='underline mt-2' />
@@ -73,7 +73,7 @@ class Freshman extends React.Component {
 					<div className='section-wrapper mb-3 pb-4'>
 						<div className='container mt-2 pb-5'>
 							<div className='row pt-5 text-center'>
-								<div className='col footer-text'>新生必读</div> {/* FIXME: come up with a better section name */}
+								<div className='col footer-text'>生存指南</div>
 							</div>
 							<div className='row'>
 								<div className='underline mt-2' />

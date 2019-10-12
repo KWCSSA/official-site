@@ -2,9 +2,6 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
-// const ipfilter = require('express-ipfilter');
-const cors = require('cors'); // FIXME: disallow cors in production
-app.use(cors());
 require('dotenv').config();
 
 app.use(bodyParser.json());

@@ -20,7 +20,7 @@ class Home extends React.Component {
 				<section className='section-wrapper mb-3 pb-4'>
 					<div className='container'>
 						<div className='row pt-5 text-center'>
-							<div className='col footer-text'>今日头条</div> {/* FIXME: come up with a better section name */}
+							<div className='col footer-text'>今日头条</div>
 						</div>
 						<div className='row'>
 							<div className='underline mt-2' />
@@ -74,8 +74,6 @@ class Home extends React.Component {
 							</div>
 							<div className='col-12 d-lg-none mt-4 ' />
 							<div className='col-12 col-lg-8 d-flex align-items-center justify-content-center description-text ch-text'>
-								{' '}
-								{/* TODO: Make this dynamic */}
 								{this.props.home ? this.props.home.description : ''}
 							</div>
 						</div>
