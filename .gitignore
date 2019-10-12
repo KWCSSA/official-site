@@ -62,6 +62,7 @@ typings/
 
 # assets used for testing
 test-assets/
+prod-assets/
 
 # MacOS DS_Store
 .DS_Store
