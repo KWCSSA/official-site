@@ -17,7 +17,7 @@
 }
 
 .about-card-detail-position {
-	font-size: 35px;
+	font-size: 30px;
 	font-weight: bold;
 }
 
@@ -74,6 +74,7 @@
 
 	.about-card-detail-position {
 		margin-top: 10px;
+		font-size: 35px;
 	}
 
 	.about-card-detail-name {
@@ -82,8 +83,8 @@
 	}
 
 	.about-card-detail-desc {
-		margin-top: 25px;
-		font-size: 15px;
+		margin-top: 20px;
+		font-size: 17px;
 	}
 }
 
