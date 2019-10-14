@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const winston = require('winston');
+const moment = require('moment-timezone');
 
 const logger = winston.createLogger({
 	level: 'info',
@@ -42,10 +43,7 @@ module.exports = app => {
 			}
 		});
 
-		var now = new Date();
-		var date = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
-		var time = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
-		var timeStamp = `${date} ${time}`;
+		var timeStamp = moment(Date.now()).tz('America/Toronto').format('YYYY-MM-DD HH:mm:ss');
 
 		var emailHTML = `<h3>姓名：${userMessage.name}</h3><h3>邮箱：${userMessage.email}</h3><h3>电话：${userMessage.phone}</h3><h3>日期：${timeStamp}</h3><h3>主题：${userMessage.subject}</h3><h3>内容：</h3><p>${userMessage.message}</p>`;
 

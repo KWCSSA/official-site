@@ -26,6 +26,7 @@
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.6-alpha.5",
+    "moment-timezone": "^0.5.26",
     "nodemailer": "^6.3.0",
     "winston": "^3.2.1"
   },
