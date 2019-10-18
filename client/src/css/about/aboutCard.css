@@ -1,5 +1,6 @@
 .about-card-pic {
-	width: 70%;
+	height: auto;
+	max-width: 70%;
 }
 
 .hover-default:hover {
@@ -12,8 +13,7 @@
 }
 
 .about-card-pic-wrapper {
-	display: flex;
-	justify-content: center;
+	text-align: center;
 }
 
 .about-card-detail-position {
@@ -40,7 +40,8 @@
 	}
 
 	.about-card-pic {
-		width: 100%;
+		height: auto;
+		max-width: 100%;
 	}
 
 	div.card {
