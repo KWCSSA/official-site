@@ -2,11 +2,17 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 require('dotenv').config();
 
-app.use(bodyParser.json());
+app.use(helmet());
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/static', express.static('static'));
+
+// Handle admin routes
+require('./routes/admin/adminRoutes')(app);
 
 // Handle home routes
 require('./routes/homeRoutes')(app);
@@ -22,9 +28,6 @@ require('./routes/aboutRoutes')(app);
 
 // Handle contact routes
 require('./routes/contactRoutes')(app);
-
-// Handle admin routes
-require('./routes/admin/adminRoutes')(app);
 
 app.use(express.static('client/build'));
 app.get('*', (req, res) => {

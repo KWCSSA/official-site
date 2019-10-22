@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import {
-	USER_LOGIN,
+	ADMIN_STATUS,
 	FETCH_EVENT,
 	FETCH_HOME,
 	FETCH_ABOUT,
@@ -21,9 +21,19 @@ function timeout(ms) {
 	);
 }
 
-export const adminLogin = password => async dispatch => {
-	const res = await axios.post(`${serverAddress}/api/admin/login?password=${password}`, { password });
-	dispatch({ type: USER_LOGIN, payload: res.data });
+// export const adminLogin = password => async dispatch => {
+// 	const res = await axios.post(`${serverAddress}/api/admin/login?password=${password}`, { password });
+// 	dispatch({ type: USER_LOGIN, payload: res.data });
+// };
+
+export const fetchAdminLoginStatus = () => async dispatch => {
+	const res = await axios.get('/admin/status');
+	dispatch({ type: ADMIN_STATUS, payload: res.data });
+};
+
+export const adminLogin = (username, password) => async dispatch => {
+	const res = await axios.post('/admin/login', { username, password });
+	dispatch({ type: ADMIN_STATUS, payload: res.data });
 };
 
 // Action for home section

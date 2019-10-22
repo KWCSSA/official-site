@@ -16,46 +16,66 @@ import AdminFreshmanList from './AdminFreshmanList';
 import UploadProgress from './UploadProgress';
 
 class Admin extends React.Component {
-	state = { password: '', init: true, message: '' };
+	state = { username: '', password: '', init: true, message: '' };
 
+	// componentDidUpdate() {
+	// 	if (!this.state.init && !this.props.admin.auth) {
+	// 		if (this.state.message !== '密码错误') {
+	// 			this.setState({
+	// 				message: '密码错误'
+	// 			});
+	// 		}
+	// 	}
+	// }
 	componentDidUpdate() {
-		if (!this.state.init && !this.props.admin.auth) {
-			if (this.state.message !== '密码错误') {
-				this.setState({
-					message: '密码错误'
-				});
-			}
-		}
+		console.log(this.state);
 	}
 
-	handleLogin(event) {
-		event.preventDefault();
-		this.props.adminLogin(this.state.password);
-		this.setState({
-			init: false
-		});
+	componentDidMount() {
+		this.props.fetchAdminLoginStatus();
+	}
+
+	handleLogin() {
+		// console.log(this.state.username, this.state.password);
+		// this.props.adminLogin(this.state.username, this.state.password);
 	}
 
 	renderLogin() {
-		return (
-			<div className='admin-login'>
-				<form onSubmit={this.handleLogin.bind(this)}>
-					<div className='form-group'>
-						<input
-							type='password'
-							name='password'
-							className='form-control'
-							aria-describedby='password'
-							onChange={e => {
-								this.setState({ password: e.target.value });
-							}}
-							value={this.state.password}
-						/>
-						<label className='text-danger'>{this.state.message}</label>
-					</div>
-				</form>
-			</div>
-		);
+		// return <Redirect to='/admin/login' />;
+		return <React.Fragment>{(window.localtion.href = '/admin/login')}</React.Fragment>;
+		// return (
+		// 	<div className='admin-login'>
+		// 		<div class='d-block'>
+		// 			<div className='form-group'>
+		// 				<input
+		// 					type='username'
+		// 					className='form-control'
+		// 					name='username'
+		// 					placeholder='Username'
+		// 					onChange={e => {
+		// 						this.setState({ username: e.target.value });
+		// 					}}
+		// 					value={this.state.username}
+		// 				/>
+		// 			</div>
+		// 			<div className='form-group'>
+		// 				<input
+		// 					type='password'
+		// 					className='form-control'
+		// 					name='password'
+		// 					placeholder='Password'
+		// 					onChange={e => {
+		// 						this.setState({ password: e.target.value });
+		// 					}}
+		// 					value={this.state.password}
+		// 				/>
+		// 			</div>
+		// 			<button className='btn btn-success w-100' onClick={() => this.handleLogin()}>
+		// 				Login
+		// 			</button>
+		// 		</div>
+		// 	</div>
+		// );
 	}
 
 	renderAdminComponents() {
@@ -141,7 +161,7 @@ class Admin extends React.Component {
 	}
 
 	render() {
-		return this.props.admin.auth ? this.renderAdminComponents() : this.renderLogin();
+		return this.props.admin.user ? this.renderAdminComponents() : this.renderLogin();
 	}
 }
 
