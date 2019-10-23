@@ -21,7 +21,7 @@ class AdminAboutPhoto extends React.Component {
 	}
 
 	handleConfirmClick() {
-		this.props.updateAboutPhoto(this.state.editing, this.props.adminPassword);
+		this.props.updateAboutPhoto(this.state.editing);
 		this.setState({
 			editing: null
 		});

@@ -24,7 +24,7 @@ class AdminHome extends React.Component {
 	}
 
 	handleConfirmClick() {
-		this.props.updateHome(this.state.editingState, this.props.adminPassword);
+		this.props.updateHome(this.state.editingState);
 		this.setState({
 			editing: null,
 			editingState: null

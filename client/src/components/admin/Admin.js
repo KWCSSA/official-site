@@ -16,23 +16,18 @@ import AdminFreshmanList from './AdminFreshmanList';
 import UploadProgress from './UploadProgress';
 
 class Admin extends React.Component {
-	state = { password: '', init: true, message: '' };
+	state = { username: '', password: '', init: true, message: '' };
 
-	componentDidUpdate() {
-		if (!this.state.init && !this.props.admin.auth) {
-			if (this.state.message !== '密码错误') {
-				this.setState({
-					message: '密码错误'
-				});
-			}
-		}
+	componentDidMount() {
+		this.props.fetchAdminLoginStatus();
 	}
 
 	handleLogin(event) {
 		event.preventDefault();
-		this.props.adminLogin(this.state.password);
+		this.props.adminLogin(this.state.username, this.state.password);
 		this.setState({
-			init: false
+			username: '',
+			password: ''
 		});
 	}
 
@@ -42,17 +37,31 @@ class Admin extends React.Component {
 				<form onSubmit={this.handleLogin.bind(this)}>
 					<div className='form-group'>
 						<input
-							type='password'
-							name='password'
+							type='username'
 							className='form-control'
-							aria-describedby='password'
+							name='username'
+							placeholder='Username'
+							onChange={e => {
+								this.setState({ username: e.target.value });
+							}}
+							value={this.state.username}
+						/>
+					</div>
+					<div className='form-group'>
+						<input
+							type='password'
+							className='form-control'
+							name='password'
+							placeholder='Password'
 							onChange={e => {
 								this.setState({ password: e.target.value });
 							}}
 							value={this.state.password}
 						/>
-						<label className='text-danger'>{this.state.message}</label>
 					</div>
+					<button type='submit' className='btn btn-success w-100'>
+						Login
+					</button>
 				</form>
 			</div>
 		);
@@ -100,39 +109,48 @@ class Admin extends React.Component {
 						>
 							新生相关
 						</button>
+						<button
+							className='btn btn-outline-danger'
+							style={{ marginTop: '5px' }}
+							onClick={() => {
+								window.location.href = '/admin/logout';
+							}}
+						>
+							Logout
+						</button>
 					</div>
 					<div id='Home' className='sections mb-5'>
 						<h1 className='mt-3 mb-3'>Home</h1>
-						<AdminHome adminPassword={this.state.password} />
+						<AdminHome />
 					</div>
 					<div id='Events' className='sections mb-5'>
 						<h1 className='mt-3 mb-3'>Events</h1>
 						<h3 id='EventBanners'>EventBanners</h3>
-						<AdminEventBanners adminPassword={this.state.password} />
+						<AdminEventBanners />
 						<h3 id='EventList' className='mt-3'>
 							EventList
 						</h3>
-						<AdminEventList adminPassword={this.state.password} />
+						<AdminEventList />
 					</div>
 					<div id='AboutList' className='sections'>
 						<h1 className='mt-3 mb-3'>About</h1>
-						<AdminAboutPhoto adminPassword={this.state.password} />
-						<AdminAboutList adminPassword={this.state.password} />
+						<AdminAboutPhoto />
+						<AdminAboutList />
 					</div>
 					<div id='Freshman' className='sections mt-5'>
 						<h1 className='mt-3 mb-3'>新生相关</h1>
 						<h3 id='FreshmanMessage' className='mt-3'>
 							新生寄语
 						</h3>
-						<AdminFreshmanMessage adminPassword={this.state.password} />
+						<AdminFreshmanMessage />
 						<h3 id='FreshmanBooklets' className='mt-3'>
 							新生手册&安全手册
 						</h3>
-						<AdminFreshmanBooklets adminPassword={this.state.password} />
+						<AdminFreshmanBooklets />
 						<h3 id='FreshmanList' className='mt-3'>
 							新生必读
 						</h3>
-						<AdminFreshmanList adminPassword={this.state.password} />
+						<AdminFreshmanList />
 					</div>
 					<div style={{ marginTop: '100px' }} />
 				</div>
@@ -141,7 +159,7 @@ class Admin extends React.Component {
 	}
 
 	render() {
-		return this.props.admin.auth ? this.renderAdminComponents() : this.renderLogin();
+		return this.props.admin.user ? this.renderAdminComponents() : this.renderLogin();
 	}
 }
 

@@ -35,7 +35,7 @@ class AdminAboutList extends React.Component {
 			}
 		}
 		if (this.state.updated) {
-			this.props.updateAboutList(this.state.about, this.props.adminPassword);
+			this.props.updateAboutList(this.state.about);
 			this.setState({
 				updated: false
 			});
@@ -60,7 +60,7 @@ class AdminAboutList extends React.Component {
 	}
 
 	handleDeleteClick(id) {
-		this.props.deleteAbout(id, this.props.adminPassword);
+		this.props.deleteAbout(id);
 		this.setState(prevState => {
 			return {
 				about: prevState.about.filter(element => element.id !== id)
@@ -141,13 +141,13 @@ class AdminAboutList extends React.Component {
 
 	handleConfirmClick() {
 		if (this.state.adding) {
-			this.props.addNewAbout(this.state.addingState, this.props.adminPassword);
+			this.props.addNewAbout(this.state.addingState);
 			this.setState({
 				adding: null,
 				addingState: null
 			});
 		} else if (this.state.editing) {
-			this.props.updateAboutDetail(this.state.editingState, this.props.adminPassword);
+			this.props.updateAboutDetail(this.state.editingState);
 			this.setState({
 				editing: null,
 				editingState: null

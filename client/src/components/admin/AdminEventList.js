@@ -35,7 +35,7 @@ class AdminEventList extends React.Component {
 			}
 		}
 		if (this.state.updated) {
-			this.props.updateEventList(this.state.events, this.props.adminPassword);
+			this.props.updateEventList(this.state.events);
 			this.setState({
 				updated: false
 			});
@@ -60,7 +60,7 @@ class AdminEventList extends React.Component {
 	}
 
 	handleDeleteClick(id) {
-		this.props.deleteEvent(id, this.props.adminPassword);
+		this.props.deleteEvent(id);
 		this.setState(prevState => {
 			return {
 				events: prevState.events.filter(element => element.id !== id)
@@ -146,13 +146,13 @@ class AdminEventList extends React.Component {
 
 	handleConfirmClick() {
 		if (this.state.adding) {
-			this.props.addNewEvent(this.state.addingState, this.props.adminPassword);
+			this.props.addNewEvent(this.state.addingState);
 			this.setState({
 				adding: null,
 				addingState: null
 			});
 		} else if (this.state.editing) {
-			this.props.updateEventDetail(this.state.editingState, this.props.adminPassword);
+			this.props.updateEventDetail(this.state.editingState);
 			this.setState({
 				editing: null,
 				editingState: null

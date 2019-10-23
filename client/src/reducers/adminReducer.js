@@ -1,10 +1,10 @@
-import { USER_LOGIN } from '../TYPES';
+import { ADMIN_STATUS } from '../TYPES';
 
-export default function(state = { auth: false }, action) {
+export default function(state = { user: null }, action) {
 	switch (action.type) {
-		case USER_LOGIN: {
+		case ADMIN_STATUS: {
 			return {
-				auth: action.payload
+				user: action.payload
 			};
 		}
 		default: {
