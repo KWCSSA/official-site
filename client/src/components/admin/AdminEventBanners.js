@@ -49,7 +49,7 @@ class AdminEventBanners extends React.Component {
 	}
 
 	handleDeleteClick(id) {
-		this.props.deleteBanner(id, this.props.adminPassword);
+		this.props.deleteBanner(id);
 		this.setState(prevState => {
 			return {
 				banners: prevState.banners.filter(element => element.id !== id)
@@ -59,9 +59,9 @@ class AdminEventBanners extends React.Component {
 
 	handleConfirmClick() {
 		if (this.state.editing) {
-			this.props.updateBannerDetail(this.state.editingState, this.props.adminPassword);
+			this.props.updateBannerDetail(this.state.editingState);
 		} else if (this.state.adding) {
-			this.props.addNewBanner(this.state.addingState, this.props.adminPassword);
+			this.props.addNewBanner(this.state.addingState);
 		}
 		this.setState({
 			editing: null,

@@ -11,7 +11,7 @@ import {
 	UPLOAD_FINISH
 } from '../TYPES';
 
-const serverAddress = '';
+var serverAddress = '';
 
 function timeout(ms) {
 	return new Promise(resolve =>
@@ -21,31 +21,42 @@ function timeout(ms) {
 	);
 }
 
-// export const adminLogin = password => async dispatch => {
-// 	const res = await axios.post(`${serverAddress}/api/admin/login?password=${password}`, { password });
-// 	dispatch({ type: USER_LOGIN, payload: res.data });
-// };
-
 export const fetchAdminLoginStatus = () => async dispatch => {
-	const res = await axios.get('/admin/status');
+	const res = await axios.get(`${serverAddress}/admin/status`);
 	dispatch({ type: ADMIN_STATUS, payload: res.data });
 };
 
 export const adminLogin = (username, password) => async dispatch => {
-	const res = await axios.post('/admin/login', { username, password });
-	dispatch({ type: ADMIN_STATUS, payload: res.data });
+	try {
+		const res = await axios.post(`${serverAddress}/admin/login`, { username, password });
+		dispatch({ type: ADMIN_STATUS, payload: res.data });
+	} catch (error) {
+		dispatch({ type: ADMIN_STATUS, payload: null });
+	}
 };
 
 // Action for home section
-export const updateHome = (home, password) => async dispatch => {
-	const res = await axios.put(`${serverAddress}/api/admin/home?password=${password}`, home);
+export const updateHome = home => async dispatch => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
+	res = await axios.put(`${serverAddress}/api/admin/home`, home);
 
 	dispatch({ type: FETCH_HOME, payload: res.data });
 };
 
 // Actions for events section
-export const updateEventList = (events, password) => async (dispatch, getState) => {
-	axios.put(`${serverAddress}/api/admin/event/list?password=${password}`, events);
+export const updateEventList = events => async (dispatch, getState) => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
+	axios.put(`${serverAddress}/api/admin/event/list`, events);
 
 	const payload = {
 		events,
@@ -55,13 +66,18 @@ export const updateEventList = (events, password) => async (dispatch, getState) 
 	dispatch({ type: FETCH_EVENT, payload });
 };
 
-export const updateEventDetail = (event, password) => async (dispatch, getState) => {
-	var res = null;
+export const updateEventDetail = event => async (dispatch, getState) => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
 	if (event.fileChanged) {
 		var fileData = new FormData();
 		fileData.append('newImage', event.file);
 		dispatch({ type: UPLOAD_START });
-		res = await axios.put(`${serverAddress}/api/admin/event/detail/image/${event.id}?password=${password}`, fileData, {
+		res = await axios.put(`${serverAddress}/api/admin/event/detail/image/${event.id}`, fileData, {
 			onUploadProgress: progressEvent => {
 				dispatch({ type: UPLOAD_PROGRESS, payload: progressEvent.loaded / progressEvent.total * 100 });
 			}
@@ -69,7 +85,7 @@ export const updateEventDetail = (event, password) => async (dispatch, getState)
 		await timeout(600);
 		dispatch({ type: UPLOAD_FINISH });
 	}
-	res = await axios.put(`${serverAddress}/api/admin/event/detail/${event.id}?password=${password}`, event);
+	res = await axios.put(`${serverAddress}/api/admin/event/detail/${event.id}`, event);
 
 	const payload = {
 		events: res.data,
@@ -79,13 +95,18 @@ export const updateEventDetail = (event, password) => async (dispatch, getState)
 	dispatch({ type: FETCH_EVENT, payload });
 };
 
-export const addNewEvent = (event, password) => async (dispatch, getState) => {
-	var res = null;
+export const addNewEvent = event => async (dispatch, getState) => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
 	var fileData = new FormData();
 	fileData.append('newImage', event.file);
-	res = await axios.post(`${serverAddress}/api/admin/event/new?password=${password}`, event);
+	res = await axios.post(`${serverAddress}/api/admin/event/new`, event);
 	dispatch({ type: UPLOAD_START });
-	res = await axios.put(`${serverAddress}/api/admin/event/detail/image/${res.data}?password=${password}`, fileData, {
+	res = await axios.put(`${serverAddress}/api/admin/event/detail/image/${res.data}`, fileData, {
 		onUploadProgress: progressEvent => {
 			dispatch({ type: UPLOAD_PROGRESS, payload: progressEvent.loaded / progressEvent.total * 100 });
 		}
@@ -101,8 +122,14 @@ export const addNewEvent = (event, password) => async (dispatch, getState) => {
 	dispatch({ type: FETCH_EVENT, payload });
 };
 
-export const deleteEvent = (id, password) => async (dispatch, getState) => {
-	const res = await axios.delete(`${serverAddress}/api/admin/event/delete/${id}?password=${password}`);
+export const deleteEvent = id => async (dispatch, getState) => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
+	res = await axios.delete(`${serverAddress}/api/admin/event/delete/${id}`);
 
 	const payload = {
 		events: res.data,
@@ -112,37 +139,34 @@ export const deleteEvent = (id, password) => async (dispatch, getState) => {
 	dispatch({ type: FETCH_EVENT, payload });
 };
 
-export const addNewBanner = (banner, password) => async (dispatch, getState) => {
-	var res = null;
+export const addNewBanner = banner => async (dispatch, getState) => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
 	var fileData = null;
-	res = await axios.post(`${serverAddress}/api/admin/event/banner/new?password=${password}`, banner);
+	res = await axios.post(`${serverAddress}/api/admin/event/banner/new`, banner);
 	var bannerId = res.data;
 	dispatch({ type: UPLOAD_START });
 	if (banner.fileChanged && banner.fileChanged.b) {
 		fileData = new FormData();
 		fileData.append('newImage', banner.file.b);
-		res = await axios.put(
-			`${serverAddress}/api/admin/event/banner/detail/image/${bannerId}?version=banner&password=${password}`,
-			fileData,
-			{
-				onUploadProgress: progressEvent => {
-					dispatch({ type: UPLOAD_PROGRESS, payload: progressEvent.loaded / progressEvent.total * 100 });
-				}
+		res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${bannerId}?version=banner`, fileData, {
+			onUploadProgress: progressEvent => {
+				dispatch({ type: UPLOAD_PROGRESS, payload: progressEvent.loaded / progressEvent.total * 100 });
 			}
-		);
+		});
 	}
 	if (banner.fileChanged && banner.fileChanged.p) {
 		fileData = new FormData();
 		fileData.append('newImage', banner.file.p);
-		res = await axios.put(
-			`${serverAddress}/api/admin/event/banner/detail/image/${bannerId}?version=poster&password=${password}`,
-			fileData,
-			{
-				onUploadProgress: progressEvent => {
-					dispatch({ type: UPLOAD_PROGRESS, payload: progressEvent.loaded / progressEvent.total * 100 });
-				}
+		res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/image/${bannerId}?version=poster`, fileData, {
+			onUploadProgress: progressEvent => {
+				dispatch({ type: UPLOAD_PROGRESS, payload: progressEvent.loaded / progressEvent.total * 100 });
 			}
-		);
+		});
 	}
 	await timeout(600);
 	dispatch({ type: UPLOAD_FINISH });
@@ -158,15 +182,20 @@ export const addNewBanner = (banner, password) => async (dispatch, getState) => 
 	dispatch({ type: FETCH_EVENT, payload });
 };
 
-export const updateBannerDetail = (banner, password) => async (dispatch, getState) => {
-	var res = null;
+export const updateBannerDetail = banner => async (dispatch, getState) => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
 	var fileData = null;
 	dispatch({ type: UPLOAD_START });
 	if (banner.fileChanged && banner.fileChanged.b) {
 		fileData = new FormData();
 		fileData.append('newImage', banner.file.b);
 		res = await axios.put(
-			`${serverAddress}/api/admin/event/banner/detail/image/${banner.id}?version=banner&password=${password}`,
+			`${serverAddress}/api/admin/event/banner/detail/image/${banner.id}?version=banner`,
 			fileData,
 			{
 				onUploadProgress: progressEvent => {
@@ -179,7 +208,7 @@ export const updateBannerDetail = (banner, password) => async (dispatch, getStat
 		fileData = new FormData();
 		fileData.append('newImage', banner.file.p);
 		res = await axios.put(
-			`${serverAddress}/api/admin/event/banner/detail/image/${banner.id}?version=poster&password=${password}`,
+			`${serverAddress}/api/admin/event/banner/detail/image/${banner.id}?version=poster`,
 			fileData,
 			{
 				onUploadProgress: progressEvent => {
@@ -190,7 +219,7 @@ export const updateBannerDetail = (banner, password) => async (dispatch, getStat
 	}
 	await timeout(600);
 	dispatch({ type: UPLOAD_FINISH });
-	res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/${banner.id}?password=${password}`, banner);
+	res = await axios.put(`${serverAddress}/api/admin/event/banner/detail/${banner.id}`, banner);
 
 	const payload = {
 		events: getState().event.events,
@@ -200,8 +229,14 @@ export const updateBannerDetail = (banner, password) => async (dispatch, getStat
 	dispatch({ type: FETCH_EVENT, payload });
 };
 
-export const deleteBanner = (id, password) => async (dispatch, getState) => {
-	const res = await axios.delete(`${serverAddress}/api/admin/event/banner/delete/${id}?password=${password}`);
+export const deleteBanner = id => async (dispatch, getState) => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
+	res = await axios.delete(`${serverAddress}/api/admin/event/banner/delete/${id}`);
 
 	const payload = {
 		events: getState().event.events,
@@ -212,8 +247,14 @@ export const deleteBanner = (id, password) => async (dispatch, getState) => {
 };
 
 // Actions for about section
-export const updateAboutList = (about, password) => (dispatch, getState) => {
-	axios.put(`${serverAddress}/api/admin/about/list?password=${password}`, about);
+export const updateAboutList = about => async (dispatch, getState) => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
+	axios.put(`${serverAddress}/api/admin/about/list`, about);
 
 	const payload = {
 		people: about,
@@ -223,14 +264,18 @@ export const updateAboutList = (about, password) => (dispatch, getState) => {
 	dispatch({ type: FETCH_ABOUT, payload });
 };
 
-export const updateAboutDetail = (person, password) => async (dispatch, getState) => {
-	// dispatch({ type: FETCH_ABOUT, payload: res.data });
-	var res = null;
+export const updateAboutDetail = person => async (dispatch, getState) => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
 	if (person.fileChanged) {
 		var fileData = new FormData();
 		fileData.append('newImage', person.file);
 		dispatch({ type: UPLOAD_START });
-		res = await axios.put(`${serverAddress}/api/admin/about/detail/image/${person.id}?password=${password}`, fileData, {
+		res = await axios.put(`${serverAddress}/api/admin/about/detail/image/${person.id}`, fileData, {
 			onUploadProgress: progressEvent => {
 				dispatch({ type: UPLOAD_PROGRESS, payload: progressEvent.loaded / progressEvent.total * 100 });
 			}
@@ -238,7 +283,7 @@ export const updateAboutDetail = (person, password) => async (dispatch, getState
 		await timeout(600);
 		dispatch({ type: UPLOAD_FINISH });
 	}
-	res = await axios.put(`${serverAddress}/api/admin/about/detail/${person.id}?password=${password}`, person);
+	res = await axios.put(`${serverAddress}/api/admin/about/detail/${person.id}`, person);
 
 	const payload = {
 		people: res.data,
@@ -248,13 +293,18 @@ export const updateAboutDetail = (person, password) => async (dispatch, getState
 	dispatch({ type: FETCH_ABOUT, payload });
 };
 
-export const addNewAbout = (person, password) => async (dispatch, getState) => {
-	var res = null;
+export const addNewAbout = person => async (dispatch, getState) => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
 	var fileData = new FormData();
 	fileData.append('newImage', person.file);
-	res = await axios.post(`${serverAddress}/api/admin/about/new?password=${password}`, person);
+	res = await axios.post(`${serverAddress}/api/admin/about/new`, person);
 	dispatch({ type: UPLOAD_START });
-	res = await axios.put(`${serverAddress}/api/admin/about/detail/image/${res.data}?password=${password}`, fileData, {
+	res = await axios.put(`${serverAddress}/api/admin/about/detail/image/${res.data}`, fileData, {
 		onUploadProgress: progressEvent => {
 			dispatch({ type: UPLOAD_PROGRESS, payload: progressEvent.loaded / progressEvent.total * 100 });
 		}
@@ -270,8 +320,14 @@ export const addNewAbout = (person, password) => async (dispatch, getState) => {
 	dispatch({ type: FETCH_ABOUT, payload });
 };
 
-export const deleteAbout = (id, password) => async (dispatch, getState) => {
-	const res = await axios.delete(`${serverAddress}/api/admin/about/delete/${id}?password=${password}`);
+export const deleteAbout = id => async (dispatch, getState) => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
+	res = await axios.delete(`${serverAddress}/api/admin/about/delete/${id}`);
 
 	const payload = {
 		people: res.data,
@@ -281,11 +337,17 @@ export const deleteAbout = (id, password) => async (dispatch, getState) => {
 	dispatch({ type: FETCH_ABOUT, payload });
 };
 
-export const updateAboutPhoto = (photo, password) => async (dispatch, getState) => {
+export const updateAboutPhoto = photo => async (dispatch, getState) => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
 	var fileData = new FormData();
 	fileData.append('newImage', photo.file);
 	dispatch({ type: UPLOAD_START });
-	const res = await axios.put(`${serverAddress}/api/admin/about/photo?password=${password}`, fileData, {
+	res = await axios.put(`${serverAddress}/api/admin/about/photo`, fileData, {
 		onUploadProgress: progressEvent => {
 			dispatch({ type: UPLOAD_PROGRESS, payload: progressEvent.loaded / progressEvent.total * 100 });
 		}
@@ -301,14 +363,25 @@ export const updateAboutPhoto = (photo, password) => async (dispatch, getState) 
 };
 
 // Actions for freshman section
-export const updateFreshmanMessage = (message, password) => async (dispatch, getState) => {
-	const res = await axios.put(`${serverAddress}/api/admin/freshman/message?password=${password}`, message);
+export const updateFreshmanMessage = message => async (dispatch, getState) => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
+	res = await axios.put(`${serverAddress}/api/admin/freshman/message`, message);
 
 	dispatch({ type: FETCH_FRESHMAN, payload: res.data });
 };
 
-export const updateFreshmanBooklets = (booklets, password) => async (dispatch, getState) => {
-	var res = null;
+export const updateFreshmanBooklets = booklets => async (dispatch, getState) => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
 	var fileData = new FormData();
 	if (booklets.NSPicChanged) {
 		fileData.append('NSPic', booklets.NSPic);
@@ -323,7 +396,7 @@ export const updateFreshmanBooklets = (booklets, password) => async (dispatch, g
 		fileData.append('SFPdf', booklets.SFPdf);
 	}
 	dispatch({ type: UPLOAD_START });
-	res = await axios.put(`${serverAddress}/api/admin/freshman/booklets?password=${password}`, fileData, {
+	res = await axios.put(`${serverAddress}/api/admin/freshman/booklets`, fileData, {
 		onUploadProgress: progressEvent => {
 			dispatch({ type: UPLOAD_PROGRESS, payload: progressEvent.loaded / progressEvent.total * 100 });
 		}
@@ -334,28 +407,52 @@ export const updateFreshmanBooklets = (booklets, password) => async (dispatch, g
 	dispatch({ type: FETCH_FRESHMAN, payload: res.data });
 };
 
-export const addNewFreshmanPost = (post, password) => async dispatch => {
-	const res = await axios.post(`${serverAddress}/api/admin/freshman/post?password=${password}`, post);
+export const addNewFreshmanPost = post => async dispatch => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
+	res = await axios.post(`${serverAddress}/api/admin/freshman/post`, post);
 
 	dispatch({ type: FETCH_FRESHMAN, payload: res.data });
 };
 
-export const updateFreshmanList = (posts, password) => (dispatch, getState) => {
-	axios.put(`${serverAddress}/api/admin/freshman/postList?password=${password}`, posts);
+export const updateFreshmanList = posts => async (dispatch, getState) => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
+	axios.put(`${serverAddress}/api/admin/freshman/postList`, posts);
 	var payload = getState().freshman;
 	payload.posts = posts;
 
 	dispatch({ type: FETCH_FRESHMAN, payload });
 };
 
-export const updateFreshmanPostDetail = (post, password) => async dispatch => {
-	const res = await axios.put(`${serverAddress}/api/admin/freshman/post/${post.id}?password=${password}`, post);
+export const updateFreshmanPostDetail = post => async dispatch => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
+	res = await axios.put(`${serverAddress}/api/admin/freshman/post/${post.id}`, post);
 
 	dispatch({ type: FETCH_FRESHMAN, payload: res.data });
 };
 
-export const deleteFreshmanPost = (id, password) => async dispatch => {
-	const res = await axios.delete(`${serverAddress}/api/admin/freshman/post/${id}?password=${password}`);
+export const deleteFreshmanPost = id => async dispatch => {
+	// Check for authentication status
+	var res = await axios.get(`${serverAddress}/admin/status`);
+	if (!res.data) {
+		return dispatch({ type: ADMIN_STATUS, payload: null });
+	}
+
+	res = await axios.delete(`${serverAddress}/api/admin/freshman/post/${id}`);
 
 	dispatch({ type: FETCH_FRESHMAN, payload: res.data });
 };
