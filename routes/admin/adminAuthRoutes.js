@@ -1,8 +1,9 @@
 const passport = require('passport');
 const LocalStrat = require('passport-local').Strategy;
-// const Session = require('express-session');
-const Session = require('cookie-session');
-const path = require('path');
+const Session = require('express-session');
+const redis = require('redis');
+const RedisStore = require('connect-redis')(Session);
+const redisClient = redis.createClient();
 
 passport.use(
 	new LocalStrat((username, password, callback) => {
@@ -32,58 +33,35 @@ passport.deserializeUser((id, callback) => {
 });
 
 module.exports = app => {
-	app.set('views', path.join(__dirname, '../../views'));
-	app.set('view engine', 'hbs');
-
-	app.use(passport.initialize());
-	app.use(passport.session());
 	app.set('trust proxy', 1);
-	// app.use(
-	// 	Session({
-	// 		secret: process.env.SESSION_SECRET,
-	// 		resave: false,
-	// 		saveUninitialized: false,
-	// 		cookie: {
-	// 			maxAge: 1000 * 60 * 60
-	// 			// httpOnly: true,
-	// 			// domain: 'kwcssa.com',
-	// 			// path: '/admin',
-	// 			// sameSite: true
-	// 			// secure: true
-	// 		}
-	// 	})
-	// );
 	app.use(
 		Session({
-			keys: [ process.env.SESSION_SECRET ],
+			store: new RedisStore({ client: redisClient }),
+			secret: process.env.SESSION_SECRET,
 			resave: false,
 			saveUninitialized: false,
 			cookie: {
-				maxAge: 1000 * 60 * 60
-				// httpOnly: true,
-				// domain: 'kwcssa.com',
-				// path: '/admin',
-				// sameSite: true
-				// secure: true
+				maxAge: 1000 * 60 * 60,
+				httpOnly: true,
+				domain: 'kwcssa.com',
+				sameSite: true,
+				secure: true
 			}
 		})
 	);
-
-	app.get('/admin/login', (req, res) => {
-		res.render('login');
-	});
+	app.use(passport.initialize());
+	app.use(passport.session());
 
 	app.get('/admin/status', (req, res) => {
-		console.log(req.user);
 		res.send(req.user);
 	});
 
-	app.post('/admin/login', passport.authenticate('local', { failureRedirect: '/admin/login' }), (req, res) => {
-		res.redirect('/admin');
+	app.post('/admin/login', passport.authenticate('local'), (req, res) => {
+		res.send(req.user);
 	});
 
 	app.get('/admin/logout', (req, res) => {
 		req.logout();
-		res.redirect('/login');
+		res.redirect('/admin');
 	});
 };

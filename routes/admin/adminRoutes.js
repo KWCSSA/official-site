@@ -9,6 +9,14 @@ module.exports = app => {
 
 	require('./adminAuthRoutes')(app);
 
+	app.use('/api/admin', (req, res, next) => {
+		if (req.user) {
+			next();
+		} else {
+			res.status(403).end();
+		}
+	});
+
 	require('./adminEventRoutes')(app);
 
 	require('./adminAboutRoutes')(app);
