@@ -88,7 +88,7 @@ export default class NavBar extends React.Component {
 									</Link>
 								</NavItem>
 								<NavItem className='ml-1 mr-1'>
-									<NavLink href='http://bbs.uwcssa.com'>论坛</NavLink>
+									<NavLink href='https://bbs.kwcssa.com/'>论坛</NavLink>
 								</NavItem>
 							</Nav>
 						</Collapse>
