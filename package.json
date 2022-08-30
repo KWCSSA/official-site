@@ -31,7 +31,7 @@
 		"express-fileupload": "^1.1.9",
 		"express-session": "^1.17.0",
 		"helmet": "^3.21.2",
-		"moment-timezone": "^0.5.26",
+		"moment-timezone": "^0.5.35",
 		"nodemailer": "^6.3.0",
 		"passport": "^0.4.0",
 		"passport-local": "^1.0.0",
